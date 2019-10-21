@@ -13,6 +13,7 @@ import {
     View, 
     List, 
     ListItem,
+    Right,
     
   } from 'native-base';
 import { Image, StatusBar, SafeAreaView } from 'react-native'
@@ -68,6 +69,7 @@ console.log(Constants.statusBarHeight)
                     about: null,
                     cityDetail: null,
                     historical: null, 
+                    search: null
                   })
                   this.setState({
                       title: "Realtime"
@@ -84,6 +86,7 @@ console.log(Constants.statusBarHeight)
                     about: null,
                     cityDetail: null,
                     historical: null, 
+                    search: null
                   })
                   this.setState({
                     title: "Sensor Control"
@@ -100,6 +103,7 @@ console.log(Constants.statusBarHeight)
                     about: null,
                     cityDetail: null,
                     historical: null, 
+                    search: null
                   })
                   this.setState({
                     title: "Cities"
@@ -116,6 +120,7 @@ console.log(Constants.statusBarHeight)
                     about: true,
                     cityDetail: null,
                     historical: null, 
+                    search: null
                   })
                   this.setState({
                     title: "About"
@@ -139,6 +144,24 @@ console.log(Constants.statusBarHeight)
                     <Body >
                     <Title style={{ color: '#FFF'}}>{title}</Title>
                     </Body>   
+                    {main.state.cities && <Right>
+                      <Button style={{backgroundColor: 'teal'}} onPress={() => {
+                        main.setState({
+                          realTime: null,
+                          sensorControl: null,
+                          cities: null,
+                          about: null,
+                          cityDetail: null,
+                          historical: null, 
+                          search: true
+                        })
+                        this.setState({
+                          title: "Search"
+                      })
+                      }}>
+                        <Icon name="add"/>
+                      </Button>
+                    </Right>}
                 </Header>
                  <Content>
                    {this.props.children}

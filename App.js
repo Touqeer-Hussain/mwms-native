@@ -19,17 +19,19 @@ import Cities from './src/screens/cities/cities'
 import Citydetail from './src/screens/citydetail/citydetail'
 import Historical from './src/screens/historical/historical'
 import About from './src/screens/about/about'
+import Search from './src/screens/search/search'
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        realTime: true,
+        realTime: null,
         sensorControl: null,
         cities: null,
         about: null,
         cityDetail: null,
         historical: null,
+        search: true,
         isReady: false,
     };
   }
@@ -47,7 +49,7 @@ export default class App extends React.Component {
   
   render() {
 
-    const { realTime, sensorControl, cities, about, cityDetail, historical } = this.state;
+    const { realTime, sensorControl, cities, about, cityDetail, historical, search } = this.state;
 
     if (!this.state.isReady) {
       return <AppLoading />;
@@ -66,6 +68,7 @@ export default class App extends React.Component {
         {cityDetail && <Citydetail main={this} />}
         {historical && <Historical main={this} />}
         {about && <About main={this} />}
+        {search && <Search main={this} />}
         
               </Menu>
             
