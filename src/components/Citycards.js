@@ -4,7 +4,7 @@ import {
     
   } from 'native-base';
 
-import { View, ActivityIndicator, Image } from 'react-native'
+import { View, ActivityIndicator, Image, AsyncStorage } from 'react-native'
 
 
 
@@ -31,15 +31,31 @@ class Citycards extends React.Component {
 
     return (
             <View>
-          <Card>
+          <Card  onTouchEnd={async () => {
+            console.log('Card Touched')
+        await AsyncStorage.setItem('data', JSON.stringify(data))
+        main.setState({
+            cities: null,
+            cityDetail: true
+        })
+          
+         
+        
+      }}  >
             <CardItem>
               <Left>
-                <Thumbnail source={image} />
+                
                 <Body>
                   <Text>{title}</Text>
                   <Text note>GeekyAnts</Text>
                 </Body>
               </Left>
+              <Body>
+
+              </Body>
+              <Right>
+              <Thumbnail source={image} />
+              </Right>
             </CardItem>
             <CardItem cardBody>
                 <Left>

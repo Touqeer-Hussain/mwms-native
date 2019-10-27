@@ -29,9 +29,9 @@ export default class App extends React.Component {
         sensorControl: null,
         cities: null,
         about: null,
-        cityDetail: null,
+        cityDetail: true,
         historical: null,
-        search: true,
+        search: null,
         isReady: false,
     };
   }
