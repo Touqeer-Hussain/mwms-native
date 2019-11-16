@@ -51,7 +51,7 @@ class Cities extends React.Component {
       fth.json().then(res => { 
         
         this.setState({
-          citiesList: this.state.citiesList.concat({...res, "city": snap.val().city})
+          citiesList: this.state.citiesList.concat({...res, "city": snap.val().city, cityKey: snap.key})
          
         }, () => {
           this.setState({

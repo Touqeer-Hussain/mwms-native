@@ -13,7 +13,7 @@ import {
 
 import Exximg from '../../assets/images/fist.jpg'
 
-import { View } from 'react-native'
+import { View, AsyncStorage } from 'react-native'
 
 
 
@@ -22,17 +22,44 @@ class Citydetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      confirm: false,
+            data: '',
+            cityData: '',
+            load: false,
+            list: [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+            ]
     };
   }
 
 
   async componentDidMount() {
-
+        
+        this.getData();
   }
+
+  async getData() {
+    this.setState({
+        data: await JSON.parse(AsyncStorage.getItem('data')) 
+    }, () => {
+        this.setState({load: true})
+        this.state.data.daily.data.length = 6
+        this.state.data.hourly.data.length = 6
+        console.log(this.state.data)
+
+    })
+
+}
 
   
   render() {
 
+     const {data, load, list} = this.state;
 
     
     return (
@@ -40,22 +67,12 @@ class Citydetail extends React.Component {
                
         <Tabs>
           <Tab heading="Current">
-          <Card  onTouchEnd={async () => {
-            console.log('Card Touched')
-        await AsyncStorage.setItem('data', JSON.stringify(data))
-        main.setState({
-            cities: null,
-            cityDetail: true
-        })
-          
-         
-        
-      }}  >
+          <Card >
             <CardItem>
               <Left>
                 
                 <Body>
-                  <Text>Title</Text>
+                  <Text></Text>
                   <Text note>GeekyAnts</Text>
                 </Body>
               </Left>

@@ -16,24 +16,34 @@ import {
     Right,
     
   } from 'native-base';
-import { Image, StatusBar, SafeAreaView } from 'react-native'
+import { Image, Alert, AsyncStorage } from 'react-native'
 
 import  Constants  from 'expo-constants'
 
 import icon from '../assets/images/icon.png'
 
-
+import firebase from '../config/firebase'
 
 class Menu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isReady: false,
-      title: "Realtime"
+      title: "Realtime",
+      data: {}
     };
   }
 
-
+async componentDidMount(){
+  this.setState({
+    data: JSON.parse(await AsyncStorage.getItem('data'))
+  }, () => {
+    console.log(this.state.data.city)
+    this.setState({
+      title: this.props.main.state.cityDetail ? this.state.data.city : "Realtime"
+    })
+  })
+}
 
   
 openDrawer = () => {
@@ -144,8 +154,9 @@ console.log(Constants.statusBarHeight)
                     <Body >
                     <Title style={{ color: '#FFF'}}>{title}</Title>
                     </Body>   
-                    {main.state.cities && <Right>
-                      <Button style={{backgroundColor: 'teal'}} onPress={() => {
+                    <Right>
+                      
+                    {main.state.cities &&  <Button style={{backgroundColor: 'teal'}} onPress={() => {
                         main.setState({
                           realTime: null,
                           sensorControl: null,
@@ -160,8 +171,54 @@ console.log(Constants.statusBarHeight)
                       })
                       }}>
                         <Icon name="add"/>
+                      </Button>}
+                      
+                      {main.state.cityDetail &&   <View>
+                        
+                        <Button style={{backgroundColor: 'red'}} onPress={() => {
+                          Alert.alert(
+                            'Are you sure?',
+                            'Do you realy want to delete this city?',
+                            [
+                              { },
+                              {
+                                text: 'Cancel',
+                                onPress: () => console.log('Cancel Pressed'),
+                                style: 'cancel',
+                              },
+                              { text: 'OK', onPress: async () => {
+
+                                this.setState({
+                                  data:  JSON.parse(await AsyncStorage.getItem('data'))
+                                }, () => {
+
+                                  firebase.database().ref(`cities/${this.state.data.cityKey}`).remove();
+                                  
+                                  main.setState({
+                                            cityDetail: null,
+                                            cities: true
+                                    })
+                        
+
+                                })
+                                
+                                          
+
+                                  
+                                    
+                              }},
+                            ],
+                            { cancelable: false }
+                          );
+                          
+                        
+                      }}>
+                        
+                        <Icon name="trash"/>
                       </Button>
-                    </Right>}
+                        
+                      </View>}
+                    </Right>
                 </Header>
                  <Content>
                    {this.props.children}

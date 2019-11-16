@@ -33,7 +33,11 @@ class Citycards extends React.Component {
             <View>
           <Card  onTouchEnd={async () => {
             console.log('Card Touched')
-        await AsyncStorage.setItem('data', JSON.stringify(data))
+            try {
+              await AsyncStorage.setItem('data', JSON.stringify(data));
+            } catch (error) {
+              // Error saving data
+            }
         main.setState({
             cities: null,
             cityDetail: true
