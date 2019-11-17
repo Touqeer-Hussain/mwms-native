@@ -45,7 +45,7 @@ class Citydetail extends React.Component {
 
   async getData() {
     this.setState({
-        data: await JSON.parse(AsyncStorage.getItem('data')) 
+        data: JSON.parse(await AsyncStorage.getItem('data')) 
     }, () => {
         this.setState({load: true})
         this.state.data.daily.data.length = 6

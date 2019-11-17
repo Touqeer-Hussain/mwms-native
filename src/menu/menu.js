@@ -30,21 +30,49 @@ class Menu extends React.Component {
     this.state = {
       isReady: false,
       title: "Realtime",
-      data: {}
+      data: {},
+      trip: true
     };
   }
 
 async componentDidMount(){
+  
+  
+}
+
+componentDidUpdate(){
+  
+
+  if(this.props.main.state.cityDetail == true && this.state.trip == true){
+    this.getHeader();
+    console.log('Menu')
+  }
+
+  if(this.props.main.state.cities == true && this.state.trip == true){
+    this.setState({
+      title: 'Cities',
+      trip: null
+    })
+    console.log('Menu')
+  }
+
+
+    
+}
+
+
+
+async getHeader(){
+  this.setState({
+    title: this.props.main.state.title,
+    trip: null
+  })
   this.setState({
     data: JSON.parse(await AsyncStorage.getItem('data'))
   }, () => {
     console.log(this.state.data.city)
-    this.setState({
-      title: this.props.main.state.cityDetail ? this.state.data.city : "Realtime"
-    })
   })
 }
-
   
 openDrawer = () => {
     
@@ -57,7 +85,6 @@ openDrawer = () => {
     const { main } = this.props;
     const { title } = this.state
     
-console.log(Constants.statusBarHeight)
     return (
 
         
@@ -82,7 +109,8 @@ console.log(Constants.statusBarHeight)
                     search: null
                   })
                   this.setState({
-                      title: "Realtime"
+                      title: "Realtime",
+                      trip: true
                   })
                   this._drawer._root.close();
               }}>
@@ -99,7 +127,8 @@ console.log(Constants.statusBarHeight)
                     search: null
                   })
                   this.setState({
-                    title: "Sensor Control"
+                    title: "Sensor Control",
+                    trip: true
                 })
                   this._drawer._root.close();
               }}>
@@ -116,7 +145,8 @@ console.log(Constants.statusBarHeight)
                     search: null
                   })
                   this.setState({
-                    title: "Cities"
+                    title: "Cities",
+                    trip: true
                 })
                   this._drawer._root.close();
               }}>
@@ -133,7 +163,8 @@ console.log(Constants.statusBarHeight)
                     search: null
                   })
                   this.setState({
-                    title: "About"
+                    title: "About",
+                    trip: true
                 })
                   this._drawer._root.close();
               }}>
@@ -167,7 +198,8 @@ console.log(Constants.statusBarHeight)
                           search: true
                         })
                         this.setState({
-                          title: "Search"
+                          title: "Search",
+                          trip: true
                       })
                       }}>
                         <Icon name="add"/>
@@ -188,25 +220,28 @@ console.log(Constants.statusBarHeight)
                               },
                               { text: 'OK', onPress: async () => {
 
-                                this.setState({
-                                  data:  JSON.parse(await AsyncStorage.getItem('data'))
-                                }, () => {
-
+                               
                                   firebase.database().ref(`cities/${this.state.data.cityKey}`).remove();
                                   
                                   main.setState({
                                             cityDetail: null,
-                                            cities: true
+                                            cities: true,
+                                            
                                     })
+
+                                  this.setState({
+                                    title: 'Cities',
+                                    trip: true
+                                  })                                    
                         
 
-                                })
+                               
                                 
                                           
 
                                   
                                     
-                              }},
+                               }},
                             ],
                             { cancelable: false }
                           );

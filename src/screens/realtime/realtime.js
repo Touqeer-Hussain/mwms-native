@@ -49,7 +49,6 @@ class Realtime extends React.Component {
             load: true
           })
         })
-        console.log(data.val())
       })
   }
 

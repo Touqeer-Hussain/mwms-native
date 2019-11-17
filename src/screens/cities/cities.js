@@ -68,6 +68,9 @@ class Cities extends React.Component {
 
   }
 
+  componentWillUnmount(){
+    firebase.database().ref('cities').off();
+  }
   
 
 

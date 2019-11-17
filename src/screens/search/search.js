@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Container, Header, Item, Input, Icon, Button, Text, List, ListItem } from 'native-base';
-import { View } from 'react-native';
+import { Container, Header, Item, Input, Icon, Button, Text, List, ListItem, Content } from 'native-base';
+import { View, ScrollView } from 'react-native';
 
 import firebase from '../../config/firebase'
 
@@ -55,20 +55,24 @@ class Search extends Component {
                     searchQuery: e
                 })
                 console.log(e)
-            }}  onEndEditing={() => {
+            }}  onSubmitEditing={() => {
                     this.searchFunc()
-            }}  />
+            }}  selectTextOnFocus blurOnSubmit  />
             
           </Item>  
         </Header>
-
+            
         { load ? 
-                    <View>
+                      <ScrollView>
+                      
                         { this.state.searchList && this.state.searchList.results.length >= 1 && this.state.searchList.results.map((data, i) => { 
                                     console.log(data) 
-                            return data.confidence <= 3  && data.components.city && data.components.country ? <List>
+                            
 
-                             <ListItem  onPress={() => {
+                                    
+                                    return    <View>
+                                      <List> 
+                                        <ListItem noIndent key={data.geohash} onPress={() => {
                                  
 
           
@@ -82,7 +86,8 @@ class Search extends Component {
                                               lat: data.geometry.lat,
                                               lng: data.geometry.lng,
                                               city: data.components.city,
-                                              country: data.components.country
+                                              country: data.components.country,
+                                              formatted: data.formatted
                                             }, (err) => {
                                               if(err){
                           
@@ -96,7 +101,7 @@ class Search extends Component {
                                                     historical: null, 
                                                     search: null
                                                   })
-                                                  this.setState({
+                                                  this.props.main.setState({
                                                     title: "Cities"
                                                 })
                                               }
@@ -111,7 +116,8 @@ class Search extends Component {
                                           lat: data.geometry.lat,
                                           lng: data.geometry.lng,
                                           city: data.components.city,
-                                          country: data.components.country
+                                          country: data.components.country,
+                                          formatted: data.formatted
                                         }, (err) => {
                                           if(err){
                           
@@ -125,7 +131,7 @@ class Search extends Component {
                                                 historical: null, 
                                                 search: null
                                               })
-                                              this.setState({
+                                              this.props.main.setState({
                                                 title: "Cities"
                                             })
                                           }
@@ -140,16 +146,19 @@ class Search extends Component {
                           
                                 
                              }} >
-                            <Text>{data.components.city}, {data.components.country}</Text>
+                            <Text>{data.formatted}</Text>
                             </ListItem>
-                            </List> : <Text></Text>
+                        
+                        </List>
+                        
+                        </View>
+                      
 
                         })
             }
+            </ScrollView>       
                         
-
-
-                    </View> : 
+                    : 
                 <View style={{
                     flex: 1,
                     justifyContent: 'center',

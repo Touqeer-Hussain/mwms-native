@@ -40,7 +40,8 @@ class Citycards extends React.Component {
             }
         main.setState({
             cities: null,
-            cityDetail: true
+            cityDetail: true,
+            title: data.city
         })
           
          
