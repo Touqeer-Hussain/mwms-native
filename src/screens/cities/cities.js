@@ -5,11 +5,13 @@ import {
     
   } from 'native-base';
 
-import { View } from 'react-native'
+import { View, Alert } from 'react-native'
 
 import { Bars } from 'react-native-loader';
 
-import Exximg from '../../assets/images/fist.jpg'
+import Exximg from '../../assets/images/clear-day.png'
+
+import tempIcon from '../../assets/images/temperature.png'
 
 import Citycards from '../../components/Citycards'
 
@@ -37,26 +39,57 @@ class Cities extends React.Component {
 
   componentDidMount() {
     firebase.database().ref('cities').once("value", async snap => { 
+      console.log(snap.numChildren())
       this.setState({
         citiesLength: snap.numChildren()
-      })
-    })
-
-  firebase.database().ref('cities').on("child_added", async snap => { 
+      }, () => {
+        if(snap.numChildren() == 0){
+          this.setState({
+            load: true
+          })
+          Alert.alert(
+            'No City added!',
+            'Do you want to add city?',
+            
+            [
+              
+              {text: 'No', onPress: () => {
+                
+             }
+          }, 
+              {text: 'Yes', onPress: () => {
+                  
+                  this.props.main.setState({
+                    cities: null,
+                    search: true,
+                    title: "Search"
+                })
+              }
+            }
+            ],
+            {cancelable: false},
+          )  
+        }else{
+          this.citiesData = firebase.database().ref('cities')
+    this.citiesData.on("child_added", async snap => { 
   
    
     
 
-    fetch(`https://api.darksky.net/forecast/04eaa61891ba6ace0154c6b2b6ce1c60/${snap.val().lat},${snap.val().lng}?units=si`).then(fth => {
+    fetch(`https://api.darksky.net/forecast/6367f2bef0cb173051708856f4083433/${snap.val().lat},${snap.val().lng}?units=si`).then(fth => {
       fth.json().then(res => { 
         
         this.setState({
-          citiesList: this.state.citiesList.concat({...res, "city": snap.val().city, cityKey: snap.key})
-         
+          citiesList: this.state.citiesList.concat({...res, "city": snap.val().city, cityKey: snap.key, country: snap.val().country})
+
         }, () => {
-          this.setState({
-            load: true
-          })
+          
+          if(this.state.citiesLength == this.state.citiesList.length){
+            this.setState({
+              load: true
+            })
+          }
+          
         })
 
       })})
@@ -65,11 +98,16 @@ class Cities extends React.Component {
         
 
   })
+        }
+        
+      })
+    })
+    
 
   }
 
   componentWillUnmount(){
-    firebase.database().ref('cities').off();
+    this.citiesData.off('child_added')
   }
   
 
@@ -77,20 +115,24 @@ class Cities extends React.Component {
   
   render() {
     
-    const { cityName, temperature, eximage, rdate, main, citiesList, citiesLength, citiesName, load, searchLoad } = this.state
-
+    const { cityName, temperature, eximage, rdate, citiesList, citiesLength, citiesName, load, searchLoad } = this.state
+    const { main } = this.props;
     
     return load ?
-            <View>
-        {citiesLength == citiesList.length ?  citiesList.map((snap,i )=> {
+            <View style={{
+              backgroundColor: this.props.main.state.menuBarColor
+            }}>
+              
+        {citiesLength == citiesList.length &&  citiesList.map((snap,i )=> {
+                  
+                
                     
-                    
-                return <Citycards data={snap} image={Exximg} title={snap.city} temp={Math.round(snap.currently.temperature)}  date={new Date(snap.currently.time * 1000).toDateString()} unit='&#8451;' main={this.props.main} key={i}/>
+                return <Citycards data={snap} city={snap.city} country={snap.country} tempIcon={tempIcon} image={snap.currently.icon}  temp={Math.round(snap.currently.temperature)}  date={new Date(snap.currently.time * 1000).toDateString()} unit='&#8451;' main={main} key={i}/>
              
            
            
              
-          }) : <Text></Text>}
+          })}
               
             </View>    
             :
@@ -102,7 +144,7 @@ class Cities extends React.Component {
               padding: 10
             }} >
               
-              <Bars size={30} color="teal" />
+              <Bars size={30} color={main.state.menuBarColor} />
               
             </View>
     

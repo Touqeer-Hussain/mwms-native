@@ -42,6 +42,10 @@ async componentDidMount(){
 
 componentDidUpdate(){
   
+  if(this.props.main.state.search == true && this.state.trip == true){
+    this.getHeader();
+    console.log('Menu')
+  }
 
   if(this.props.main.state.cityDetail == true && this.state.trip == true){
     this.getHeader();
@@ -89,7 +93,7 @@ openDrawer = () => {
 
         
 
-          <Drawer type='displace'   
+          <Drawer type='displace'
             ref={(ref) => { this._drawer = ref; }}
             content={
               <List style={{marginTop: Constants.statusBarHeight}}>
@@ -98,11 +102,12 @@ openDrawer = () => {
                 <Image source={icon} style={{height: 200, width: null, flex: 1}}/>
 
                 </ListItem>
-              <ListItem  style={{ backgroundColor: main.state.realTime ? '#94ffe6' : 'white' }} onPress={() => {
+              <ListItem  style={{ backgroundColor: main.state.realTime ? main.state.outlineColor : 'white' }} onPress={() => {
                   main.setState({
                     realTime: true,
                     sensorControl: null,
                     cities: null,
+                    theme: null,
                     about: null,
                     cityDetail: null,
                     historical: null, 
@@ -116,11 +121,12 @@ openDrawer = () => {
               }}>
               <Text>Realtime</Text>
               </ListItem>
-              <ListItem style={{ backgroundColor: main.state.sensorControl ? '#94ffe6' : 'white' }} onPress={() => {
+              <ListItem style={{ backgroundColor: main.state.sensorControl ? main.state.outlineColor : 'white' }} onPress={() => {
                   main.setState({
                     realTime: null,
                     sensorControl: true,
                     cities: null,
+                    theme: null,
                     about: null,
                     cityDetail: null,
                     historical: null, 
@@ -134,11 +140,12 @@ openDrawer = () => {
               }}>
                 <Text>Sensor Control</Text>
               </ListItem>
-              <ListItem style={{ backgroundColor: main.state.cities ? '#94ffe6' : 'white' }} onPress={() => {
+              <ListItem style={{ backgroundColor: main.state.cities ? main.state.outlineColor : 'white' }} onPress={() => {
                   main.setState({
                     realTime: null,
                     sensorControl: null,
                     cities: true,
+                    theme: null,
                     about: null,
                     cityDetail: null,
                     historical: null, 
@@ -152,11 +159,31 @@ openDrawer = () => {
               }}>
                 <Text>Cities</Text>
               </ListItem>
-              <ListItem style={{ backgroundColor: main.state.about ? '#94ffe6' : 'white' }} onPress={() => {
+              <ListItem style={{ backgroundColor: main.state.theme ? main.state.outlineColor : 'white' }} onPress={() => {
                   main.setState({
                     realTime: null,
                     sensorControl: null,
                     cities: null,
+                    about: null,
+                    theme: true,
+                    cityDetail: null,
+                    historical: null, 
+                    search: null
+                  })
+                  this.setState({
+                    title: "Theme",
+                    trip: true
+                })
+                  this._drawer._root.close();
+              }}>
+                <Text>Theme</Text>
+              </ListItem>
+              <ListItem style={{ backgroundColor: main.state.about ? main.state.outlineColor : 'white' }} onPress={() => {
+                  main.setState({
+                    realTime: null,
+                    sensorControl: null,
+                    cities: null,
+                    theme: null,
                     about: true,
                     cityDetail: null,
                     historical: null, 
@@ -175,7 +202,7 @@ openDrawer = () => {
                 
     <Container style={{marginTop: Constants.statusBarHeight}}>
             
-                <Header style={{ backgroundColor: 'teal' }} >
+                <Header style={{ backgroundColor: main.state.menuBarColor }} >
                     
                     <Left>
                         <Button transparent onPress={this.openDrawer.bind(this)}>
@@ -187,11 +214,12 @@ openDrawer = () => {
                     </Body>   
                     <Right>
                       
-                    {main.state.cities &&  <Button style={{backgroundColor: 'teal'}} onPress={() => {
+                    {main.state.cities &&  <Button style={{backgroundColor: main.state.outlineColors}} onPress={() => {
                         main.setState({
                           realTime: null,
                           sensorControl: null,
                           cities: null,
+                          theme: null,
                           about: null,
                           cityDetail: null,
                           historical: null, 

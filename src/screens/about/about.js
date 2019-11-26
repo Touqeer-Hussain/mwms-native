@@ -1,7 +1,10 @@
 import React from 'react';
 import { 
     Container,
-    Text
+    Text,
+    Grid,
+    Row,
+    Col,
     
   } from 'native-base';
 
@@ -30,7 +33,17 @@ class About extends React.Component {
     
     return (
             <View>
-                    <Text>About</Text>
+                    <Grid>
+                  
+              <Row size={3} style={{backgroundColor: 'red'}}> 
+              <View></View>
+              
+              </Row>
+              <Row size={1}>  
+              </Row>
+                  
+                      
+                    </Grid>
             </View>    
     
     

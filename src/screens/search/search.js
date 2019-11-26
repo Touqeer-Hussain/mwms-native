@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Container, Header, Item, Input, Icon, Button, Text, List, ListItem, Content } from 'native-base';
-import { View, ScrollView } from 'react-native';
+import { Container, Header, Toast, Item, Input, Icon, Button, Text, List, ListItem, Content, Left, Right, Body } from 'native-base';
+import { View, ScrollView, Alert } from 'react-native';
 
 import firebase from '../../config/firebase'
 
@@ -12,12 +12,25 @@ class Search extends Component {
         this.state = {
             searchQuery: '',
             searchList: null,
-            load: true
+            load: true,
+            citiesList: []
         }
     }
 
     componentDidMount(){
-        
+      this.citiesRef = firebase.database().ref('cities');
+      this.citiesRef.on("child_added", async snap => { 
+        if(snap.val()){
+          this.setState({
+            citiesList: this.state.citiesList.concat(snap.val())
+          
+          })
+        }
+      })  
+    }
+
+    componentWillUnmount(){
+      this.citiesRef.off('child_added')
     }
 
     async searchFunc(){
@@ -47,14 +60,14 @@ class Search extends Component {
  
     return (
       <Container>
-        <Header searchBar rounded style={{ backgroundColor: 'teal' }} >
+        <Header searchBar rounded style={{ backgroundColor: main.state.menuBarColor }} >
           <Item>
             <Icon name="ios-search" />
             <Input placeholder="Search" onChangeText={(e) => {
                 this.setState({
                     searchQuery: e
                 })
-                console.log(e)
+                
             }}  onSubmitEditing={() => {
                     this.searchFunc()
             }}  selectTextOnFocus blurOnSubmit  />
@@ -63,100 +76,145 @@ class Search extends Component {
         </Header>
             
         { load ? 
-                      <ScrollView>
+                      <Content>
                       
+                                      <List>
                         { this.state.searchList && this.state.searchList.results.length >= 1 && this.state.searchList.results.map((data, i) => { 
-                                    console.log(data) 
-                            
-
                                     
-                                    return    <View>
-                                      <List> 
-                                        <ListItem noIndent key={data.geohash} onPress={() => {
+                            
+                                    return   data.confidence <= 5  && ( data.components.city || data.components.state ) && data.components.country ? <ListItem key={data.annotations.geohash} onPress={() => {
                                  
-
-          
-                                    firebase.database().ref('cities').once("value", snap  => {
-                                      if(snap.val() !== null){
-                                        firebase.database().ref('cities').once("child_added", snap => {
                                         
-                                          console.log(snap)
-                                          if(snap.val().city !== data.components.city){
+                                      let cityFound = false;
+                                      console.log(this.state.citiesList.length)
+          
+                                      if(this.state.citiesList.length >= 1){
+                          
+                                        this.state.citiesList.filter((entry) => {
+                                          if(entry.city == data.components.city || entry.city == data.components.state){
+                                                
+                                                cityFound = true
+                                          }else{
+                                              
+                                          } 
+                                          
+                                        })
+                          
+                          
+                                        if(!cityFound){
                                             firebase.database().ref('cities').push({
                                               lat: data.geometry.lat,
                                               lng: data.geometry.lng,
-                                              city: data.components.city,
+                                              city: data.components.city ? data.components.city : data.components.state,
                                               country: data.components.country,
                                               formatted: data.formatted
                                             }, (err) => {
                                               if(err){
                           
                                               }else{
-                                                main.setState({
-                                                    realTime: null,
-                                                    sensorControl: null,
-                                                    cities: true,
-                                                    about: null,
-                                                    cityDetail: null,
-                                                    historical: null, 
-                                                    search: null
-                                                  })
-                                                  this.props.main.setState({
-                                                    title: "Cities"
-                                                })
+                                                Alert.alert(
+                                                  'City Added',
+                                                    '',
+                                                  [
+                                                    
+                                                    {text: 'OK', onPress: () => {
+                                                        
+                                                        main.setState({
+                                                          cities: true,
+                                                          search: null,
+                                                          title: "Cities"
+                                                      })
+                                                    }},
+                                                  ],
+                                                  {cancelable: false},
+                                                );
+                                                
+                                                
+                                                
                                               }
                                             })
                                           }else{
-                                            console.log('city already')
+                                            Alert.alert(
+                                              'Duplicate!',
+                                              'City already available',
+                                              
+                                              [
+                                                
+                                                {text: 'OK', onPress: () => {
+                                                    console.log('Runt')
+                                                   }
+                                              },
+                                              ],
+                                              {cancelable: false},
+                                            );
+                                            
                                           }
-                                        })
+                            
                                       }else{
                           
                                         firebase.database().ref('cities').push({
                                           lat: data.geometry.lat,
                                           lng: data.geometry.lng,
-                                          city: data.components.city,
+                                          city: data.components.city ? data.components.city : data.components.state,
                                           country: data.components.country,
                                           formatted: data.formatted
                                         }, (err) => {
                                           if(err){
                           
                                           }else{
-                                            main.setState({
-                                                realTime: null,
-                                                sensorControl: null,
-                                                cities: true,
-                                                about: null,
-                                                cityDetail: null,
-                                                historical: null, 
-                                                search: null
-                                              })
-                                              this.props.main.setState({
-                                                title: "Cities"
-                                            })
+                                            
+                                            Alert.alert(
+                                              'City Added',
+                                                '',
+                                              [
+                                                
+                                                {text: 'OK', onPress: () => {
+                                                    
+                                                    main.setState({
+                                                      cities: true,
+                                                      search: null,
+                                                      title: "Cities"
+                                                  })
+                                                }},
+                                              ],
+                                              {cancelable: false},
+                                            );
+                                            
+
+                                              
+                                                    
+                                            
                                           }
                                         })
                           
                                       }
-                                    })
-                                      
+                                                                
                                     
                           
                           
                           
                                 
-                             }} >
-                            <Text>{data.formatted}</Text>
-                            </ListItem>
+                             }}>
+                               
+                               <Body>
+                              
+                              <Text>{data.formatted}</Text>
+                              <Text note>{data.components.city ? data.components.city : data.components.state}, {data.components.country}</Text>
+
+                              </Body>
+                              <Right>
+                              <Icon name={'md-arrow-dropright'} />
+                              </Right>
+                            </ListItem> : <View></View>
                         
-                        </List>
-                        
-                        </View>
                       
 
                         })
             }
-            </ScrollView>       
+            
+            </List>
+            </Content>        
+                           
                         
                     : 
                 <View style={{
@@ -167,7 +225,7 @@ class Search extends Component {
                     padding: 10
                   }} >
                     
-                    <Bars size={30} color="teal" />
+                    <Bars size={30} color={main.state.menuBarColor} />
                     
                   </View>
       }

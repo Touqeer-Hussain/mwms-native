@@ -10,7 +10,8 @@ import {
 
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-
+import firebase from './src/config/firebase'
+import { BackHandler } from 'react-native'
 
 import Menu from './src/menu/menu'
 
@@ -21,20 +22,24 @@ import Citydetail from './src/screens/citydetail/citydetail'
 import Historical from './src/screens/historical/historical'
 import About from './src/screens/about/about'
 import Search from './src/screens/search/search'
+import Theme from './src/screens/theme/theme'
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        realTime: true,
+        realTime: null,
         sensorControl: null,
         cities: null,
         about: null,
-        cityDetail: null,
+        cityDetail: true,
         historical: null,
+        theme: null,
         search: null,
         isReady: false,
-        title: ''
+        title: '',
+        menuBarColor: '',
+        outlineColor: ''
     };
   }
 
@@ -45,13 +50,54 @@ export default class App extends React.Component {
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
       ...Ionicons.font,
     });
-    this.setState({ isReady: true });
+    this.themeRef =  firebase.database().ref('theme/mobile')
+       this.themeRef.on('value', snap => {
+          
+          
+          this.setState({
+              menuBarColor: snap.val().menuBarColor,
+              outlineColor:  snap.val().outlineColor,
+              isReady: true
+          })
+        })
+this.backKeyHandler();
+
+
+        
   }
+
+  backKeyHandler(){
+    
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      
+      if (this.state.cityDetail == true) {
+        this.setState({
+          cities: true,
+          cityDetail: null,
+          title: 'Cities'
+        })  
+        return true
+      }
+      if(this.state.search == true){
+        this.setState({
+          cities: true,
+          search: null,
+          title: 'Cities'
+        })  
+        return true
+      }
+      return false
+    });
+  }
+
+  componentWillUnmount(){
+    this.themeRef.off('value')
+}
 
   
   render() {
 
-    const { realTime, sensorControl, cities, about, cityDetail, historical, search } = this.state;
+    const { realTime, sensorControl, cities, about, cityDetail, historical, search, theme } = this.state;
 
     if (!this.state.isReady) {
       return <AppLoading />;
@@ -69,6 +115,7 @@ export default class App extends React.Component {
         {cities && <Cities main={this} />}
         {cityDetail && <Citydetail main={this} />}
         {historical && <Historical main={this} />}
+        {theme && <Theme main={this} />}
         {about && <About main={this} />}
         {search && <Search main={this} />}
         

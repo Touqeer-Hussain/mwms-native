@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "MWMS",
-    "slug": "mwms-native",
+    "name": "My Weather Monitoring System",
+    "slug": "mwms",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [
