@@ -22,7 +22,6 @@ import { Bars } from 'react-native-loader';
 
 
 
-import tempIcon from '../../assets/images/temperature.png'
 
 
 
@@ -37,14 +36,9 @@ class Citydetail extends React.Component {
             data: '',
             cityData: '',
             load: false,
-            list: [
-                1,
-                2,
-                3,
-                4,
-                5,
-                6
-            ]
+            background: '',
+            currentFontColor: '',
+            tempIcon: '',
     };
   }
 
@@ -56,183 +50,336 @@ class Citydetail extends React.Component {
   }
 
   async getData() {
+     
     this.setState({
         data: JSON.parse(await AsyncStorage.getItem('data')) 
     }, () => {
+      const { data } = this.state;
+
         this.setState({load: true})
         this.state.data.daily.data.length = 6
         this.state.data.hourly.data.length = 6
-        console.log(this.state.data)
-        switch (this.state.data.currently.icon) {
-          case 'clear-day':
-              console.log('c day')
-              this.setState({
-                  iconName: require('../../assets/images/clear-day.png')
-              })
-          break;
-          case 'clear-night':
-              console.log('c N')
-              this.setState({
-                iconName: require('../../assets/images/clear-night.png')
-            })
-          break;
-          case 'rain':
-              console.log('rain')
-              this.setState({
-                iconName: require('../../assets/images/rain.png')
-            })
-          break;
-          case 'snow':
-              console.log('snow')
-              this.setState({
-                iconName: require('../../assets/images/snow.png')
-            })
-          break;
-          case 'sleet':
-              console.log('sleet')
-              this.setState({
-                iconName: require('../../assets/images/sleet.png')
-            })
-          break;
-          case 'wind':
-              console.log('wind')
-              this.setState({
-                iconName: require('../../assets/images/wind.png')
-            })
-          break;
-          case 'rain':
-              console.log('rain')
-              this.setState({
-                iconName: require('../../assets/images/rain.png')
-            })
-          break;
-          case 'fog':
-              console.log('fog')
-              this.setState({
-                iconName: require('../../assets/images/fog.png')
-            })
-          break;
-          case 'cloudy':
-              console.log('cloudy')
-              this.setState({
-                iconName: require('../../assets/images/cloudy.png')
-            })
-          break;
-          case 'partly-cloudy-day':
-              console.log('p c d')
-              this.setState({
-                iconName: require('../../assets/images/partly-cloudy-day.png')
-            })
-          break;
-          case 'partly-cloudy-night':
-              console.log('p c n')
-              this.setState({
-                iconName: require('../../assets/images/partly-cloudy-night.png')
-            })
-          break;
-      
-        default:
-          break;
-      }
+
+        if(data.currently.time >= data.daily.data[0].sunriseTime && data.currently.time <= data.daily.data[0].sunsetTime){
+          this.setState({
+              background: require('../../assets/images/day-background.png'),
+              currentFontColor: 'black',
+              tempIcon: require('../../assets/images/temperature.png'),
+
+          })
+         }else{
+          this.setState({
+               background: require('../../assets/images/night-background.png'),
+               currentFontColor: 'white',
+               tempIcon: require('../../assets/images/temperature-white.png'),
+           })
+  }
+
 
 
     })
 
 }
 
+getPic(icon){
+  switch (icon) {
+    case 'clear-day':
+        console.log('c day')
+
+        
+          return require('../../assets/images/clear-day.png')
+       
+        
+    break;
+    case 'clear-night':
+        console.log('c N')
+       
+      return require('../../assets/images/clear-night.png')
+    break;
+    case 'rain':
+        console.log('rain')
+        
+        return require('../../assets/images/rain.png')
+      
+    break;
+    case 'snow':
+        console.log('snow')
+        
+          return require('../../assets/images/snow.png')
+   
+    break;
+    case 'sleet':
+        console.log('sleet')
+       
+          return require('../../assets/images/sleet.png')
+     
+    break;
+    case 'wind':
+        console.log('wind')
+      
+        return require('../../assets/images/wind.png')
+     
+    break;
+    case 'rain':
+        console.log('rain')
+        
+          return require('../../assets/images/rain.png')
+   
+    break;
+    case 'fog':
+        console.log('fog')
+        
+        return require('../../assets/images/fog.png')
+     
+    break;
+    case 'cloudy':
+        console.log('cloudy')
+        
+          return require('../../assets/images/cloudy.png')
+     
+    break;
+    case 'partly-cloudy-day':
+        console.log('p c d')
+        
+          return require('../../assets/images/partly-cloudy-day.png')
+      
+    break;
+    case 'partly-cloudy-night':
+        console.log('p c n')
+        
+          return require('../../assets/images/partly-cloudy-night.png')
+      
+    break;
+
+  default:
+    break;
+}
+}
+
   
   render() {
 
-     const {data, iconName, load, list} = this.state;
+     const {data, iconName, load, tempIcon, currentFontColor, background} = this.state;
      const { main } = this.props;
 
     
     return (
             load ? <View>
                
-        <Tabs tabBarBackgroundColor='white'>
-          <Tab heading="Current" tabStyle={{backgroundColor: main.state.outlineColor}} activeTabStyle={{backgroundColor: main.state.outlineColor}}>
-            <ImageBackground source={require('../../assets/images/day-background.png')} style={{width: '100%', height: '100%'}}>
+        <Tabs initialPage={2}>
+          <Tab heading="Current"  
+          tabStyle={{backgroundColor: main.state.outlineColor}} 
+          activeTabStyle={{backgroundColor: main.state.outlineColor}}
+          >
+            <ImageBackground source={background} style={{width: '100%', height: '100%'}}>
               <Grid>
-            <Row>
+            <Row style={{
+              paddingTop: 5,
+            }}>
               <Col size={1}l style={{paddingTop: 25, paddingLeft: 10}}>
               <Image source={tempIcon} style={{height: 45, width: 20, }}/>  
               </Col>
 
               <Col size={6} style={{paddingLeft:0 }}>
             
-            <Text style={{fontSize: 70, color: 'black'}}>{Math.round(data.currently.temperature)}<Text style={{fontSize: 30,}}>&#8451;</Text></Text>
+            <Text style={{fontSize: 70, color: currentFontColor}}>{Math.round(data.currently.temperature)}<Text style={{fontSize: 30,}}>&#8451;</Text></Text>
             </Col>
             <Col size={7} style={{flex: 5}}>
             
-            <Image source={iconName} style={{height: 100, width: 103.17}}/>
+            <Image source={this.getPic(this.state.data.currently.icon)} style={{height: 100, width: 103.17}}/>
             </Col>
             </Row>
-            <Row style={{paddingTop: 80, paddingBottom: 10, borderBottomWidth: 0.5, borderBottomEndRadius: 20, borderBottomStartRadius: 20, borderBottomColor: 'white'}}>
+            <Row style={{
+              paddingTop: 60,
+              paddingBottom: 10,
+              borderBottomWidth: 0.5,
+              borderBottomEndRadius: 20,
+              borderBottomStartRadius: 20,
+              borderBottomColor: 'white'
+              }}>
 
-              
-                <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
-                <Image source={require('../../assets/images/visibility.png') } style={{height: 25, width: 25}}/>
-                </Col>
-                <Col size={6}>
-                <Text style= {{ fontSize:22, color: 'black'}}>Visibilty</Text>          
-                </Col>
-                <Col size={-2}>
-                <Text style= {{fontSize: 23, color: 'black'}}> {data.currently.visibility.toFixed(2)} </Text>
-             </Col>
-             
-             <Col size={2}> 
-               <Text style= {{ color: 'black', paddingTop: 7}}> km/h </Text>        
-                </Col>
-              
-            </Row>
-              
-            <Row style={{paddingTop: 10}}>
+            
+                        <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
+                              <Image source={require('../../assets/images/visibility.png') } style={{height: 25, width: 25}}/>
+                        </Col>
 
-              
-                <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
-                <Image source={require('../../assets/images/visibility.png') } style={{height: 25, width: 25}}/>
-                </Col>
-                <Col size={6}>
-                <Text style= {{ fontSize:22, color: 'black'}}>Visibilty</Text>          
-                </Col>
-                <Col size={-2}>
-                <Text style= {{fontSize: 23, color: 'black'}}> {data.currently.visibility.toFixed(2)} </Text>
-             </Col>
-             
-             <Col size={2}> 
-               <Text style= {{ color: 'black', paddingTop: 7}}> km/h </Text>        
-                </Col>
+                        <Col size={6}>
+                              <Text style= {{ fontSize:22, color: currentFontColor}}>Visibilty</Text>          
+                        </Col>
+
+                        <Col size={-2}>
+                              <Text style= {{fontSize: 23, color: currentFontColor}}> {data.currently.visibility.toFixed(2)} </Text>
+                        </Col>
+
+                        <Col size={2}> 
+                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> km/h </Text>        
+                        </Col>
               
             </Row>
+              
+            <Row style={{
+              paddingTop: 10,
+              paddingBottom: 10,
+              borderBottomWidth: 0.5,
+              borderBottomEndRadius: 20,
+              borderBottomStartRadius: 20,
+              borderBottomColor: 'white'
+              }}>
 
+            
+                        <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
+                              <Image source={require('../../assets/images/visibility.png') } style={{height: 25, width: 25}}/>
+                        </Col>
 
+                        <Col size={6}>
+                              <Text style= {{ fontSize:22, color: currentFontColor}}>Visibilty</Text>          
+                        </Col>
 
-            <List>
-            <ListItem avtar >
-              <Left>
-              <Image source={require('../../assets/images/visibility.png') } style={{height: 20, width: 20}}/>
-                </Left>
-              <Body>
-              <Text style= {{ color: 'black'}}>Visibilty</Text>
-                 </Body>
-              <Right>
-                
-                <Text style= {{ color: 'black'}}> {data.currently.visibility.toFixed(2)} </Text>
-                <Text> km/h </Text>
-                </Right>
-                
-            </ListItem>
-            <ListItem>
-              <Left><Text>Simon Mignolet</Text></Left>
-              <Right><Text>1000 hpa</Text></Right>
-            </ListItem>
-            <ListItem>
-              <Left><Text>Simon Mignolet</Text></Left>
-              <Right><Text>1000 hpa</Text></Right>
-            </ListItem>
-          </List>
+                        <Col size={-2}>
+                              <Text style= {{fontSize: 23, color: currentFontColor}}> {data.currently.visibility.toFixed(2)} </Text>
+                        </Col>
 
+                        <Col size={2}> 
+                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> km/h </Text>        
+                        </Col>
+              
+            </Row>
+
+            <Row style={{
+              paddingTop: 10,
+              paddingBottom: 10,
+              borderBottomWidth: 0.5,
+              borderBottomEndRadius: 20,
+              borderBottomStartRadius: 20,
+              borderBottomColor: 'white'
+              }}>
+
+            
+                        <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
+                              <Image source={require('../../assets/images/visibility.png') } style={{height: 25, width: 25}}/>
+                        </Col>
+
+                        <Col size={6}>
+                              <Text style= {{ fontSize:22, color: currentFontColor}}>Visibilty</Text>          
+                        </Col>
+
+                        <Col size={-2}>
+                              <Text style= {{fontSize: 23, color: currentFontColor}}> {data.currently.visibility.toFixed(2)} </Text>
+                        </Col>
+
+                        <Col size={2}> 
+                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> km/h </Text>        
+                        </Col>
+              
+            </Row> 
+            <Row style={{
+              paddingTop: 10,
+              paddingBottom: 10,
+              borderBottomWidth: 0.5,
+              borderBottomEndRadius: 20,
+              borderBottomStartRadius: 20,
+              borderBottomColor: 'white'
+              }}>
+
+            
+                        <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
+                              <Image source={require('../../assets/images/visibility.png') } style={{height: 25, width: 25}}/>
+                        </Col>
+
+                        <Col size={6}>
+                              <Text style= {{ fontSize:22, color: currentFontColor}}>Visibilty</Text>          
+                        </Col>
+
+                        <Col size={-2}>
+                              <Text style= {{fontSize: 23, color: currentFontColor}}> {data.currently.visibility.toFixed(2)} </Text>
+                        </Col>
+
+                        <Col size={2}> 
+                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> km/h </Text>        
+                        </Col>
+              
+            </Row> 
+            <Row style={{
+              paddingTop: 10,
+              paddingBottom: 10,
+              borderBottomWidth: 0.5,
+              borderBottomEndRadius: 20,
+              borderBottomStartRadius: 20,
+              borderBottomColor: 'white'
+              }}>
+
+            
+                        <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
+                              <Image source={require('../../assets/images/visibility.png') } style={{height: 25, width: 25}}/>
+                        </Col>
+
+                        <Col size={6}>
+                              <Text style= {{ fontSize:22, color: currentFontColor}}>Visibilty</Text>          
+                        </Col>
+
+                        <Col size={-2}>
+                              <Text style= {{fontSize: 23, color: currentFontColor}}> {data.currently.visibility.toFixed(2)} </Text>
+                        </Col>
+
+                        <Col size={2}> 
+                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> km/h </Text>        
+                        </Col>
+              
+            </Row> 
+            <Row style={{
+              paddingTop: 10,
+              paddingBottom: 10,
+              borderBottomWidth: 0.5,
+              borderBottomEndRadius: 20,
+              borderBottomStartRadius: 20,
+              borderBottomColor: 'white'
+              }}>
+
+            
+                        <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
+                              <Image source={require('../../assets/images/visibility.png') } style={{height: 25, width: 25}}/>
+                        </Col>
+
+                        <Col size={6}>
+                              <Text style= {{ fontSize:22, color: currentFontColor}}>Visibilty</Text>          
+                        </Col>
+
+                        <Col size={-2}>
+                              <Text style= {{fontSize: 23, color: currentFontColor}}> {data.currently.visibility.toFixed(2)} </Text>
+                        </Col>
+
+                        <Col size={2}> 
+                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> km/h </Text>        
+                        </Col>
+              
+            </Row> 
+            <Row style={{
+              paddingTop: 10,
+              paddingBottom: 10,
+              borderBottomWidth: 0.5,
+              borderBottomEndRadius: 20,
+              borderBottomStartRadius: 20,
+              borderBottomColor: 'white'
+              }}>
+
+            
+                        <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
+                              <Image source={require('../../assets/images/visibility.png') } style={{height: 25, width: 25}}/>
+                        </Col>
+
+                        <Col size={6}>
+                              <Text style= {{ fontSize:22, color: currentFontColor}}>Visibilty</Text>          
+                        </Col>
+
+                        <Col size={-2}>
+                              <Text style= {{fontSize: 23, color: currentFontColor}}> {data.currently.visibility.toFixed(2)} </Text>
+                        </Col>
+
+                        <Col size={2}> 
+                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> km/h </Text>        
+                        </Col>
+              
+            </Row>
             </Grid>
             </ImageBackground>
           {/* <Card transparent>
@@ -277,37 +424,111 @@ class Citydetail extends React.Component {
             </ListItem>
           </List> */}
           </Tab>
-          <Tab heading="Hourly" tabStyle={{backgroundColor: main.state.outlineColor}}>
-          <List>
-            <ListItem>
-              <Left><Text>Simon Mignolet</Text></Left>
-              <Right><Text>^30C</Text><Text> </Text><Text><Text>^30C</Text></Text></Right>
-            </ListItem>
-            <ListItem>
-              <Left><Text>Simon Mignolet</Text></Left>
-              <Right><Text>1000 hpa</Text></Right>
-            </ListItem>
-            <ListItem>
-              <Left><Text>Simon Mignolet</Text></Left>
-              <Right><Text>1000 hpa</Text></Right>
-            </ListItem>
-          </List>
+          <Tab heading="Hourly"  
+          tabStyle={{backgroundColor: main.state.outlineColor}} 
+          activeTabStyle={{backgroundColor: main.state.outlineColor}}
+          ><Grid>
+             <ImageBackground source={background} style={{width: '100%', height: '100%'}}>
+            {data.hourly.data.map((snap, i) => {                                                
+                                                   
+                                                    var targetTime = new Date(snap.time * 1000);
+                                                    var timeZoneFromDB = parseInt(data.timezone); 
+                                                    var tzDifference = timeZoneFromDB * 60 + targetTime.getTimezoneOffset();
+                                                    var offsetTime = new Date(targetTime.getTime() + tzDifference * 60 * 1000); 
+
+                                                    var cTime =offsetTime.toLocaleTimeString().split(":");
+                                                    var pTime = cTime[0] > 12 ? `${cTime[0] - 12}:${cTime[1]}` : `${cTime[0]}:${cTime[1]}`
+                                                    var meridim = cTime[0] > 12 ? 'pm' : 'am'
+                                                  
+                                                    return (  <Row key={i} style={{
+                                                      paddingTop: 25,
+                                                      paddingBottom: 10,
+                                                      borderBottomWidth: 0.5,
+                                                      borderBottomEndRadius: 20,
+                                                      borderBottomStartRadius: 20,
+                                                      borderBottomColor: 'white'
+                                                      }}>
+                                                    
+                                                                
+                                        
+                                                                <Col size={3}>
+                                                                  <Text style= {{ fontSize:22, color: 'black', paddingLeft: 13}}>{pTime} {meridim}</Text>          
+                                                                </Col>
+
+                                                                <Col size={2}>
+                                                                <Image source={this.getPic(snap.icon)} style={{height: 40, width: 41.26}}/>
+                                                                </Col>
+
+                                                                <Col size={-2}>
+                                                                      <Text style= {{fontSize: 30, color: 'black'}}> {Math.round(snap.temperature)} </Text>
+                                                                </Col>
+                                        
+                                                                <Col size={1}> 
+                                                                    <Text style= {{ fontSize: 20, color: 'black', paddingTop: 10}}>  &#8451; </Text>        
+                                                                </Col>
+                                                    </Row> 
+                                                   )
+            })}
+          
+          </ImageBackground>
+          </Grid>
           </Tab>
-          <Tab heading="Daily" tabStyle={{backgroundColor: main.state.outlineColor}}>
-          <List>
-            <ListItem>
-              <Left><Text>Simon Mignolet</Text></Left>
-              <Right><Text>^30C</Text><Text> </Text><Text><Text>^30C</Text></Text></Right>
-            </ListItem>
-            <ListItem>
-              <Left><Text>Simon Mignolet</Text></Left>
-              <Right><Text>1000 hpa</Text></Right>
-            </ListItem>
-            <ListItem>
-              <Left><Text>Simon Mignolet</Text></Left>
-              <Right><Text>1000 hpa</Text></Right>
-            </ListItem>
-          </List>
+          <Tab heading="Daily"
+           tabStyle={{backgroundColor: main.state.outlineColor}} 
+           activeTabStyle={{backgroundColor: main.state.outlineColor}}
+           >
+             <Grid>
+             <ImageBackground source={background} style={{width: '100%', height: '100%'}}>
+            {data.daily.data.map((snap, i) => {                                                
+                                                   
+                                                    var targetTime = new Date(snap.time * 1000);
+                                                    var timeZoneFromDB = parseInt(data.timezone); 
+                                                    var tzDifference = timeZoneFromDB * 60 + targetTime.getTimezoneOffset();
+                                                    var offsetTime = new Date(targetTime.getTime() + tzDifference * 60 * 1000); 
+
+                                                    var cDate = offsetTime.toLocaleDateString()
+
+                                                   
+                                                  
+                                                    return (  <Row key={i} style={{
+                                                      paddingTop: 25,
+                                                      paddingBottom: 10,
+                                                      borderBottomWidth: 0.5,
+                                                      borderBottomEndRadius: 20,
+                                                      borderBottomStartRadius: 20,
+                                                      borderBottomColor: 'white'
+                                                      }}>
+                                                    
+                                                                
+                                        
+                                                                <Col size={3}>
+                                                                  <Text style= {{ fontSize:22, color: 'black', paddingLeft: 13}}>{cDate}</Text>          
+                                                                </Col>
+
+                                                              
+
+                                                                <Col size={-2}>
+                                                                      <Text style= {{fontSize: 30, color: 'black'}}> ↑{Math.round(snap.temperatureMax)} </Text>
+                                                                </Col>
+                                        
+                                                                <Col size={-2}> 
+                                                                    <Text style= {{ fontSize: 20, color: 'black', paddingTop: 10}}>  &#8451; </Text>        
+                                                                </Col>
+
+                                                                <Col size={-2}>
+                                                                  
+                                                                      <Text style= {{fontSize: 30, color: 'black'}}> ↓{Math.round(snap.temperatureMin)} </Text>
+                                                                </Col>
+                                        
+                                                                <Col size={1}> 
+                                                                    <Text style= {{ fontSize: 20, color: 'black', paddingTop: 10}}>  &#8451; </Text>        
+                                                                </Col>
+                                                    </Row> 
+                                                   )
+            })}
+          
+          </ImageBackground>
+          </Grid>
           </Tab>
         </Tabs>
             </View>    : <View style={{
@@ -324,7 +545,7 @@ class Citydetail extends React.Component {
     
     
     );
-
+            
     
   }
 }

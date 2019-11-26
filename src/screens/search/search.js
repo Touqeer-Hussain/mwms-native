@@ -107,7 +107,8 @@ class Search extends Component {
                                               lng: data.geometry.lng,
                                               city: data.components.city ? data.components.city : data.components.state,
                                               country: data.components.country,
-                                              formatted: data.formatted
+                                              formatted: data.formatted,
+                                              timezone: data.annotations.timezone.offset_string.substring(0, 3)
                                             }, (err) => {
                                               if(err){
                           
@@ -157,7 +158,8 @@ class Search extends Component {
                                           lng: data.geometry.lng,
                                           city: data.components.city ? data.components.city : data.components.state,
                                           country: data.components.country,
-                                          formatted: data.formatted
+                                          formatted: data.formatted,
+                                          timezone: data.annotations.timezone.offset_string
                                         }, (err) => {
                                           if(err){
                           

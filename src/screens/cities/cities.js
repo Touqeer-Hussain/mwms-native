@@ -80,7 +80,13 @@ class Cities extends React.Component {
       fth.json().then(res => { 
         
         this.setState({
-          citiesList: this.state.citiesList.concat({...res, "city": snap.val().city, cityKey: snap.key, country: snap.val().country})
+          citiesList: this.state.citiesList.concat({
+            ...res, 
+            "city": snap.val().city, 
+            cityKey: snap.key, 
+            country: snap.val().country,
+            timezone: snap.val().timezone
+          })
 
         }, () => {
           
@@ -107,7 +113,10 @@ class Cities extends React.Component {
   }
 
   componentWillUnmount(){
-    this.citiesData.off('child_added')
+    if(this.state.citiesList.length > 0){
+      this.citiesData.off('child_added')
+    }
+    
   }
   
 
