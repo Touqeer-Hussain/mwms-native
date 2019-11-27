@@ -45,7 +45,8 @@ class Citydetail extends React.Component {
             windDirection: '',
             windSpeed: '',
             uvIndex: '',
-            visibility: ''
+            visibility: '',
+            barColor: ''
     };
   }
 
@@ -71,6 +72,7 @@ class Citydetail extends React.Component {
           this.setState({
               background: require('../../assets/images/day-background.png'),
               currentFontColor: 'black',
+              barColor: '#4facf2',
               tempIcon: require('../../assets/images/temperature.png'),
               humidity: require('../../assets/images/humidity.png'),
               airPressure: require('../../assets/images/airpressure.png'),
@@ -85,6 +87,7 @@ class Citydetail extends React.Component {
           this.setState({
                background: require('../../assets/images/night-background.png'),
                currentFontColor: 'white',
+               barColor: '#0c203b',
                tempIcon: require('../../assets/images/temperature-white.png'), 
                humidity: require('../../assets/images/humidity-white.png'),
                airPressure: require('../../assets/images/airpressure-white.png'),
@@ -180,7 +183,7 @@ getPic(icon){
   
   render() {
 
-     const {data, iconName, load, tempIcon, currentFontColor, background, 
+     const {data, iconName, load, tempIcon, currentFontColor, background, barColor,
       humidity, airPressure, realFeel, windDirection, windSpeed, uvIndex, visibility} = this.state;
      const { main } = this.props;
 
@@ -190,8 +193,8 @@ getPic(icon){
                
         <Tabs initialPage={2}>
           <Tab heading="Current"  
-          tabStyle={{backgroundColor: main.state.outlineColor}} 
-          activeTabStyle={{backgroundColor: main.state.outlineColor}}
+          tabStyle={{backgroundColor: barColor}} 
+          activeTabStyle={{backgroundColor: barColor}}
           >
             <ImageBackground source={background} style={{width: '100%', height: '100%'}}>
               <Grid>
@@ -447,8 +450,8 @@ getPic(icon){
           </List> */}
           </Tab>
           <Tab heading="Hourly"  
-          tabStyle={{backgroundColor: main.state.outlineColor}} 
-          activeTabStyle={{backgroundColor: main.state.outlineColor}}
+          tabStyle={{backgroundColor: barColor}} 
+          activeTabStyle={{backgroundColor: barColor}}
           ><Grid>
              <ImageBackground source={background} style={{width: '100%', height:  Math.round(Dimensions.get('window').height)}}>
             {data.hourly.data.map((snap, i) => {                                                
@@ -495,8 +498,8 @@ getPic(icon){
           </Grid>
           </Tab>
           <Tab heading="Daily"
-           tabStyle={{backgroundColor: main.state.outlineColor}} 
-           activeTabStyle={{backgroundColor: main.state.outlineColor}}
+           tabStyle={{backgroundColor: barColor}} 
+           activeTabStyle={{backgroundColor: barColor}}
            >
              <Grid>
              <ImageBackground source={background} style={{width: '100%', height: Math.round(Dimensions.get('window').height)}}>
