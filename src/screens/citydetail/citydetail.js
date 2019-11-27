@@ -39,6 +39,13 @@ class Citydetail extends React.Component {
             background: '',
             currentFontColor: '',
             tempIcon: '',
+            humidity:'',
+            airPressure: '',
+            realFeel: '',
+            windDirection: '',
+            windSpeed: '',
+            uvIndex: '',
+            visibility: ''
     };
   }
 
@@ -65,13 +72,27 @@ class Citydetail extends React.Component {
               background: require('../../assets/images/day-background.png'),
               currentFontColor: 'black',
               tempIcon: require('../../assets/images/temperature.png'),
+              humidity: require('../../assets/images/humidity.png'),
+              airPressure: require('../../assets/images/airpressure.png'),
+              realFeel: require('../../assets/images/realfeel.png'),
+              windDirection: require('../../assets/images/wind-direction.png'),
+              windSpeed: require('../../assets/images/wind-speed.png'),
+              uvIndex: require('../../assets/images/uv-index.png'),
+              visibility: require('../../assets/images/visibility.png')
 
           })
          }else{
           this.setState({
                background: require('../../assets/images/night-background.png'),
                currentFontColor: 'white',
-               tempIcon: require('../../assets/images/temperature-white.png'),
+               tempIcon: require('../../assets/images/temperature-white.png'), 
+               humidity: require('../../assets/images/humidity-white.png'),
+               airPressure: require('../../assets/images/airpressure-white.png'),
+               realFeel: require('../../assets/images/realfeel-white.png'),
+               windDirection: require('../../assets/images/wind-direction-white.png'),
+               windSpeed: require('../../assets/images/wind-speed-white.png'),
+               uvIndex: require('../../assets/images/uv-index-white.png'),
+               visibility: require('../../assets/images/visibility-white.png')
            })
   }
 
@@ -159,7 +180,8 @@ getPic(icon){
   
   render() {
 
-     const {data, iconName, load, tempIcon, currentFontColor, background} = this.state;
+     const {data, iconName, load, tempIcon, currentFontColor, background, 
+      humidity, airPressure, realFeel, windDirection, windSpeed, uvIndex, visibility} = this.state;
      const { main } = this.props;
 
     
@@ -200,7 +222,7 @@ getPic(icon){
 
             
                         <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
-                              <Image source={require('../../assets/images/humidity.png') } style={{height: 25, width: 25}}/>
+                              <Image source={humidity} style={{height: 25, width: 25}}/>
                         </Col>
 
                         <Col size={6}>
@@ -228,7 +250,7 @@ getPic(icon){
 
             
                         <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
-                              <Image source={require('../../assets/images/airpressure.png') } style={{height: 25, width: 25}}/>
+                              <Image source={airPressure} style={{height: 25, width: 25}}/>
                         </Col>
 
                         <Col size={6}>
@@ -256,7 +278,7 @@ getPic(icon){
 
             
                         <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
-                              <Image source={require('../../assets/images/realfeel.png') } style={{height: 25, width: 25}}/>
+                              <Image source={realFeel } style={{height: 25, width: 25}}/>
                         </Col>
 
                         <Col size={6}>
@@ -283,7 +305,7 @@ getPic(icon){
 
             
                         <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
-                              <Image source={require('../../assets/images/wind-direction.png') } style={{height: 25, width: 25}}/>
+                              <Image source={windDirection} style={{height: 25, width: 25}}/>
                         </Col>
 
                         <Col size={6}>
@@ -310,7 +332,7 @@ getPic(icon){
 
             
                         <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
-                              <Image source={require('../../assets/images/wind-speed.png') } style={{height: 25, width: 25}}/>
+                              <Image source={windSpeed} style={{height: 25, width: 25}}/>
                         </Col>
 
                         <Col size={6}>
@@ -337,7 +359,7 @@ getPic(icon){
 
             
                         <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
-                              <Image source={require('../../assets/images/uv-index.png') } style={{height: 25, width: 25}}/>
+                              <Image source={uvIndex} style={{height: 25, width: 25}}/>
                         </Col>
 
                         <Col size={6}>
@@ -364,7 +386,7 @@ getPic(icon){
 
             
                         <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
-                              <Image source={require('../../assets/images/visibility.png') } style={{height: 25, width: 25}}/>
+                              <Image source={visibility} style={{height: 25, width: 25}}/>
                         </Col>
 
                         <Col size={6}>
