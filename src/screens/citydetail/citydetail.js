@@ -16,7 +16,7 @@ import {
   } from 'native-base';
 
 
-import { View, AsyncStorage, Image, ImageBackground } from 'react-native'
+import { View, AsyncStorage, Image, ImageBackground, Dimensions } from 'react-native'
 
 import { Bars } from 'react-native-loader';
 
@@ -200,19 +200,19 @@ getPic(icon){
 
             
                         <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
-                              <Image source={require('../../assets/images/visibility.png') } style={{height: 25, width: 25}}/>
+                              <Image source={require('../../assets/images/humidity.png') } style={{height: 25, width: 25}}/>
                         </Col>
 
                         <Col size={6}>
-                              <Text style= {{ fontSize:22, color: currentFontColor}}>Visibilty</Text>          
+                              <Text style= {{ fontSize:20, color: currentFontColor}}>Humidity</Text>          
                         </Col>
 
                         <Col size={-2}>
-                              <Text style= {{fontSize: 23, color: currentFontColor}}> {data.currently.visibility.toFixed(2)} </Text>
+                              <Text style= {{fontSize: 23, color: currentFontColor}}>{data.currently.humidity.toString().split('.')[1]}</Text>
                         </Col>
 
                         <Col size={2}> 
-                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> km/h </Text>        
+                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> &#37;</Text>        
                         </Col>
               
             </Row>
@@ -228,19 +228,19 @@ getPic(icon){
 
             
                         <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
-                              <Image source={require('../../assets/images/visibility.png') } style={{height: 25, width: 25}}/>
+                              <Image source={require('../../assets/images/airpressure.png') } style={{height: 25, width: 25}}/>
                         </Col>
 
                         <Col size={6}>
-                              <Text style= {{ fontSize:22, color: currentFontColor}}>Visibilty</Text>          
+                              <Text style= {{ fontSize:20, color: currentFontColor}}>Air Pressure</Text>          
                         </Col>
 
                         <Col size={-2}>
-                              <Text style= {{fontSize: 23, color: currentFontColor}}> {data.currently.visibility.toFixed(2)} </Text>
+                              <Text style= {{fontSize: 23, color: currentFontColor}}>{Math.round(data.currently.pressure)}</Text>
                         </Col>
 
                         <Col size={2}> 
-                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> km/h </Text>        
+                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> hPa</Text>        
                         </Col>
               
             </Row>
@@ -256,19 +256,100 @@ getPic(icon){
 
             
                         <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
-                              <Image source={require('../../assets/images/visibility.png') } style={{height: 25, width: 25}}/>
+                              <Image source={require('../../assets/images/realfeel.png') } style={{height: 25, width: 25}}/>
                         </Col>
 
                         <Col size={6}>
-                              <Text style= {{ fontSize:22, color: currentFontColor}}>Visibilty</Text>          
+                              <Text style= {{ fontSize:20, color: currentFontColor}}>Real Feel</Text>          
                         </Col>
 
                         <Col size={-2}>
-                              <Text style= {{fontSize: 23, color: currentFontColor}}> {data.currently.visibility.toFixed(2)} </Text>
+                              <Text style= {{fontSize: 23, color: currentFontColor}}>{Math.round(data.currently.apparentTemperature)}</Text>
                         </Col>
 
                         <Col size={2}> 
-                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> km/h </Text>        
+                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> &#8451;</Text>        
+                        </Col>
+              
+            </Row> 
+            <Row style={{
+              paddingTop: 10,
+              paddingBottom: 10,
+              borderBottomWidth: 0.5,
+              borderBottomEndRadius: 20,
+              borderBottomStartRadius: 20,
+              borderBottomColor: 'white'
+              }}>
+
+            
+                        <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
+                              <Image source={require('../../assets/images/wind-direction.png') } style={{height: 25, width: 25}}/>
+                        </Col>
+
+                        <Col size={6}>
+                              <Text style= {{ fontSize:20, color: currentFontColor}}>Wind Direction</Text>          
+                        </Col>
+
+                        <Col size={-2}>
+                              <Text style= {{fontSize: 23, color: currentFontColor}}>{data.currently.windBearing}</Text>
+                        </Col>
+
+                        <Col size={2}> 
+                            <Text style= {{ color: currentFontColor, paddingTop: 7}}>&#176;</Text>        
+                        </Col>
+              
+            </Row> 
+            <Row style={{
+              paddingTop: 10,
+              paddingBottom: 10,
+              borderBottomWidth: 0.5,
+              borderBottomEndRadius: 20,
+              borderBottomStartRadius: 20,
+              borderBottomColor: 'white'
+              }}>
+
+            
+                        <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
+                              <Image source={require('../../assets/images/wind-speed.png') } style={{height: 25, width: 25}}/>
+                        </Col>
+
+                        <Col size={6}>
+                              <Text style= {{ fontSize:20, color: currentFontColor}}>Wind Speed</Text>          
+                        </Col>
+
+                        <Col size={-2}>
+                              <Text style= {{fontSize: 23, color: currentFontColor}}>{data.currently.windSpeed}</Text>
+                        </Col>
+
+                        <Col size={2}> 
+                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> km/h</Text>        
+                        </Col>
+              
+            </Row> 
+            <Row style={{
+              paddingTop: 10,
+              paddingBottom: 10,
+              borderBottomWidth: 0.5,
+              borderBottomEndRadius: 20,
+              borderBottomStartRadius: 20,
+              borderBottomColor: 'white'
+              }}>
+
+            
+                        <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
+                              <Image source={require('../../assets/images/uv-index.png') } style={{height: 25, width: 25}}/>
+                        </Col>
+
+                        <Col size={6}>
+                              <Text style= {{ fontSize:20, color: currentFontColor}}>UV Index</Text>          
+                        </Col>
+
+                        <Col size={-2}>
+                              <Text style= {{fontSize: 23, color: currentFontColor}}>{data.currently.uvIndex}</Text>
+                        </Col>
+
+                        <Col size={2}> 
+                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> mW²/m</Text>        
                         </Col>
               
             </Row> 
@@ -287,96 +368,15 @@ getPic(icon){
                         </Col>
 
                         <Col size={6}>
-                              <Text style= {{ fontSize:22, color: currentFontColor}}>Visibilty</Text>          
+                              <Text style= {{ fontSize:20, color: currentFontColor}}>Visibilty</Text>          
                         </Col>
 
                         <Col size={-2}>
-                              <Text style= {{fontSize: 23, color: currentFontColor}}> {data.currently.visibility.toFixed(2)} </Text>
+                              <Text style= {{fontSize: 23, color: currentFontColor}}>{data.currently.visibility.toFixed(2)}</Text>
                         </Col>
 
                         <Col size={2}> 
-                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> km/h </Text>        
-                        </Col>
-              
-            </Row> 
-            <Row style={{
-              paddingTop: 10,
-              paddingBottom: 10,
-              borderBottomWidth: 0.5,
-              borderBottomEndRadius: 20,
-              borderBottomStartRadius: 20,
-              borderBottomColor: 'white'
-              }}>
-
-            
-                        <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
-                              <Image source={require('../../assets/images/visibility.png') } style={{height: 25, width: 25}}/>
-                        </Col>
-
-                        <Col size={6}>
-                              <Text style= {{ fontSize:22, color: currentFontColor}}>Visibilty</Text>          
-                        </Col>
-
-                        <Col size={-2}>
-                              <Text style= {{fontSize: 23, color: currentFontColor}}> {data.currently.visibility.toFixed(2)} </Text>
-                        </Col>
-
-                        <Col size={2}> 
-                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> km/h </Text>        
-                        </Col>
-              
-            </Row> 
-            <Row style={{
-              paddingTop: 10,
-              paddingBottom: 10,
-              borderBottomWidth: 0.5,
-              borderBottomEndRadius: 20,
-              borderBottomStartRadius: 20,
-              borderBottomColor: 'white'
-              }}>
-
-            
-                        <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
-                              <Image source={require('../../assets/images/visibility.png') } style={{height: 25, width: 25}}/>
-                        </Col>
-
-                        <Col size={6}>
-                              <Text style= {{ fontSize:22, color: currentFontColor}}>Visibilty</Text>          
-                        </Col>
-
-                        <Col size={-2}>
-                              <Text style= {{fontSize: 23, color: currentFontColor}}> {data.currently.visibility.toFixed(2)} </Text>
-                        </Col>
-
-                        <Col size={2}> 
-                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> km/h </Text>        
-                        </Col>
-              
-            </Row> 
-            <Row style={{
-              paddingTop: 10,
-              paddingBottom: 10,
-              borderBottomWidth: 0.5,
-              borderBottomEndRadius: 20,
-              borderBottomStartRadius: 20,
-              borderBottomColor: 'white'
-              }}>
-
-            
-                        <Col size={1} style={{paddingLeft: 10, paddingTop: 4}} >
-                              <Image source={require('../../assets/images/visibility.png') } style={{height: 25, width: 25}}/>
-                        </Col>
-
-                        <Col size={6}>
-                              <Text style= {{ fontSize:22, color: currentFontColor}}>Visibilty</Text>          
-                        </Col>
-
-                        <Col size={-2}>
-                              <Text style= {{fontSize: 23, color: currentFontColor}}> {data.currently.visibility.toFixed(2)} </Text>
-                        </Col>
-
-                        <Col size={2}> 
-                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> km/h </Text>        
+                            <Text style= {{ color: currentFontColor, paddingTop: 7}}> km/h</Text>        
                         </Col>
               
             </Row>
@@ -428,7 +428,7 @@ getPic(icon){
           tabStyle={{backgroundColor: main.state.outlineColor}} 
           activeTabStyle={{backgroundColor: main.state.outlineColor}}
           ><Grid>
-             <ImageBackground source={background} style={{width: '100%', height: '100%'}}>
+             <ImageBackground source={background} style={{width: '100%', height:  Math.round(Dimensions.get('window').height)}}>
             {data.hourly.data.map((snap, i) => {                                                
                                                    
                                                     var targetTime = new Date(snap.time * 1000);
@@ -436,13 +436,13 @@ getPic(icon){
                                                     var tzDifference = timeZoneFromDB * 60 + targetTime.getTimezoneOffset();
                                                     var offsetTime = new Date(targetTime.getTime() + tzDifference * 60 * 1000); 
 
-                                                    var cTime =offsetTime.toLocaleTimeString().split(":");
+                                                    var cTime = offsetTime.toLocaleTimeString().split(":");
                                                     var pTime = cTime[0] > 12 ? `${cTime[0] - 12}:${cTime[1]}` : `${cTime[0]}:${cTime[1]}`
                                                     var meridim = cTime[0] > 12 ? 'pm' : 'am'
                                                   
                                                     return (  <Row key={i} style={{
-                                                      paddingTop: 25,
-                                                      paddingBottom: 10,
+                                                      paddingTop: 15,
+                                                      paddingBottom: 0,
                                                       borderBottomWidth: 0.5,
                                                       borderBottomEndRadius: 20,
                                                       borderBottomStartRadius: 20,
@@ -452,24 +452,23 @@ getPic(icon){
                                                                 
                                         
                                                                 <Col size={3}>
-                                                                  <Text style= {{ fontSize:22, color: 'black', paddingLeft: 13}}>{pTime} {meridim}</Text>          
+                                                                  <Text style= {{ fontSize:25, color: currentFontColor, paddingLeft: 13, paddingTop: 3}}>{pTime} {meridim}</Text>          
                                                                 </Col>
 
                                                                 <Col size={2}>
-                                                                <Image source={this.getPic(snap.icon)} style={{height: 40, width: 41.26}}/>
+                                                                <Image source={this.getPic(snap.icon)} style={{height: 80, width: 82.54}}/>
                                                                 </Col>
 
                                                                 <Col size={-2}>
-                                                                      <Text style= {{fontSize: 30, color: 'black'}}> {Math.round(snap.temperature)} </Text>
+                                                                      <Text style= {{fontSize: 30, color: currentFontColor, paddingTop: 30}}>{Math.round(snap.temperature)}</Text>
                                                                 </Col>
                                         
                                                                 <Col size={1}> 
-                                                                    <Text style= {{ fontSize: 20, color: 'black', paddingTop: 10}}>  &#8451; </Text>        
+                                                                    <Text style= {{ fontSize: 20, color: currentFontColor, paddingTop: 40}}>&#8451;</Text>        
                                                                 </Col>
                                                     </Row> 
                                                    )
             })}
-          
           </ImageBackground>
           </Grid>
           </Tab>
@@ -478,7 +477,7 @@ getPic(icon){
            activeTabStyle={{backgroundColor: main.state.outlineColor}}
            >
              <Grid>
-             <ImageBackground source={background} style={{width: '100%', height: '100%'}}>
+             <ImageBackground source={background} style={{width: '100%', height: Math.round(Dimensions.get('window').height)}}>
             {data.daily.data.map((snap, i) => {                                                
                                                    
                                                     var targetTime = new Date(snap.time * 1000);
@@ -492,37 +491,55 @@ getPic(icon){
                                                   
                                                     return (  <Row key={i} style={{
                                                       paddingTop: 25,
-                                                      paddingBottom: 10,
+                                                      paddingBottom: 14,
                                                       borderBottomWidth: 0.5,
                                                       borderBottomEndRadius: 20,
                                                       borderBottomStartRadius: 20,
                                                       borderBottomColor: 'white'
                                                       }}>
                                                     
-                                                                
-                                        
-                                                                <Col size={3}>
-                                                                  <Text style= {{ fontSize:22, color: 'black', paddingLeft: 13}}>{cDate}</Text>          
-                                                                </Col>
 
-                                                              
+                                                            <Col size={1}>
+                                                                  <Text style= {{ fontSize:22, color: currentFontColor, paddingLeft: 5}}>{cDate}</Text>          
+                                                            </Col>
 
-                                                                <Col size={-2}>
-                                                                      <Text style= {{fontSize: 30, color: 'black'}}> ↑{Math.round(snap.temperatureMax)} </Text>
+                                                            <Col size={1}>
+                                                                <Image source={this.getPic(snap.icon)} style={{height: 70, width: 72.52}}/>
+                                                            </Col>
+                                                          
+                                                            <Col size={0.6}>
+
+
+                                                            <Row>
+                                                               <Col size={-2}>
+                                                                      <Text style= {{fontSize: 30, color: currentFontColor}}>↑{Math.round(snap.temperatureMax)}</Text>
                                                                 </Col>
                                         
                                                                 <Col size={-2}> 
-                                                                    <Text style= {{ fontSize: 20, color: 'black', paddingTop: 10}}>  &#8451; </Text>        
+                                                                    <Text style= {{ fontSize: 20, color: currentFontColor, paddingTop: 10}}> &#8451;</Text>        
                                                                 </Col>
-
-                                                                <Col size={-2}>
+                                                               </Row>
+                                                               <Row>
+                                                               <Col size={-2}>
                                                                   
-                                                                      <Text style= {{fontSize: 30, color: 'black'}}> ↓{Math.round(snap.temperatureMin)} </Text>
-                                                                </Col>
+                                                                  <Text style= {{fontSize: 30, color: currentFontColor}}>↓{Math.round(snap.temperatureMin)}</Text>
+                                                            </Col>
+                                    
+                                                            <Col size={1}> 
+                                                                <Text style= {{ fontSize: 20, color: currentFontColor, paddingTop: 10}}> &#8451;</Text>        
+                                                            </Col>
+                                                               </Row>
+                                                            </Col>
+                                                                
+                                                            
                                         
-                                                                <Col size={1}> 
-                                                                    <Text style= {{ fontSize: 20, color: 'black', paddingTop: 10}}>  &#8451; </Text>        
-                                                                </Col>
+                                                                
+
+                                                              
+
+                                                               
+
+                                                                
                                                     </Row> 
                                                    )
             })}
