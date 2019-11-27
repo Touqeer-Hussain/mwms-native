@@ -37,8 +37,18 @@ class Cities extends React.Component {
   }
 
 
+  
+  componentWillUnmount(){
+    if(this.state.citiesList.length > 0){
+      this.citiesData.off('child_added')
+    }
+    this.citiesNumRef.off('value')
+    
+  }
+
   componentDidMount() {
-    firebase.database().ref('cities').once("value", async snap => { 
+    this.citiesNumRef = firebase.database().ref('cities')
+    this.citiesNumRef.on("value", async snap => { 
       console.log(snap.numChildren())
       this.setState({
         citiesLength: snap.numChildren()
@@ -47,28 +57,7 @@ class Cities extends React.Component {
           this.setState({
             load: true
           })
-          Alert.alert(
-            'No City added!',
-            'Do you want to add city?',
-            
-            [
-              
-              {text: 'No', onPress: () => {
-                
-             }
-          }, 
-              {text: 'Yes', onPress: () => {
-                  
-                  this.props.main.setState({
-                    cities: null,
-                    search: true,
-                    title: "Search"
-                })
-              }
-            }
-            ],
-            {cancelable: false},
-          )  
+         
         }else{
           this.citiesData = firebase.database().ref('cities')
     this.citiesData.on("child_added", async snap => { 
@@ -90,11 +79,10 @@ class Cities extends React.Component {
 
         }, () => {
           
-          if(this.state.citiesLength == this.state.citiesList.length){
+         
             this.setState({
               load: true
             })
-          }
           
         })
 
@@ -112,12 +100,6 @@ class Cities extends React.Component {
 
   }
 
-  componentWillUnmount(){
-    if(this.state.citiesList.length > 0){
-      this.citiesData.off('child_added')
-    }
-    
-  }
   
 
 
@@ -132,7 +114,7 @@ class Cities extends React.Component {
               backgroundColor: main.state.menuBarColor
             }}>
               
-        {citiesLength == citiesList.length &&  citiesList.map((snap,i )=> {
+        {citiesList.map((snap,i )=> {
                   
                 
                     
