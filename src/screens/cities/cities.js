@@ -129,7 +129,7 @@ class Cities extends React.Component {
     
     return load ?
             <View style={{
-              backgroundColor: this.props.main.state.menuBarColor
+              backgroundColor: main.state.menuBarColor
             }}>
               
         {citiesLength == citiesList.length &&  citiesList.map((snap,i )=> {

@@ -223,10 +223,10 @@ openDrawer = () => {
                           about: null,
                           cityDetail: null,
                           historical: null, 
-                          search: true
+                          search: true,
+                          title: 'Search'
                         })
                         this.setState({
-                          title: "Search",
                           trip: true
                       })
                       }}>
@@ -249,8 +249,7 @@ openDrawer = () => {
                               { text: 'OK', onPress: async () => {
 
                                
-                                  firebase.database().ref(`cities/${this.state.data.cityKey}`).remove();
-                                  
+                                  firebase.database().ref(`cities/${JSON.parse(await AsyncStorage.getItem('data')).cityKey}`).remove();
                                   main.setState({
                                             cityDetail: null,
                                             cities: true,

@@ -63,7 +63,7 @@ class Sensorcontrol extends React.Component {
           <ListItem>
             <Body>
               <Text>BMP 180 (Air Pressure, Altitude)</Text>
-              {<Text note>Status: {dht22 ? <Text note style={{color: 'green'}}>Online</Text> : <Text note style={{color: 'red'}}>Offline</Text>}</Text>}
+              {<Text note>Status: {bmp180 ? <Text note style={{color: 'green'}}>Online</Text> : <Text note style={{color: 'red'}}>Offline</Text>}</Text>}
             </Body>
             <Right>
             <Switch value={bmp180} onValueChange={checked => {
@@ -79,7 +79,7 @@ class Sensorcontrol extends React.Component {
           <ListItem>
             <Body>
               <Text>LDR (Luminosity)</Text>
-              {<Text note>Status: {dht22 ? <Text note style={{color: 'green'}}>Online</Text> : <Text note style={{color: 'red'}}>Offline</Text>}</Text>}
+              {<Text note>Status: {ldr ? <Text note style={{color: 'green'}}>Online</Text> : <Text note style={{color: 'red'}}>Offline</Text>}</Text>}
             </Body>
             <Right>
             <Switch value={ldr} onValueChange={checked => {

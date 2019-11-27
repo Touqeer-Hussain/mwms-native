@@ -46,7 +46,8 @@ class Citydetail extends React.Component {
             windSpeed: '',
             uvIndex: '',
             visibility: '',
-            barColor: ''
+            barColor: '',
+            mainTime: ''
     };
   }
 
@@ -58,7 +59,7 @@ class Citydetail extends React.Component {
   }
 
   async getData() {
-     
+
     this.setState({
         data: JSON.parse(await AsyncStorage.getItem('data')) 
     }, () => {
@@ -67,6 +68,8 @@ class Citydetail extends React.Component {
         this.setState({load: true})
         this.state.data.daily.data.length = 6
         this.state.data.hourly.data.length = 6
+
+          console.log(data.currently.time)
 
         if(data.currently.time >= data.daily.data[0].sunriseTime && data.currently.time <= data.daily.data[0].sunsetTime){
           this.setState({
@@ -186,12 +189,21 @@ getPic(icon){
      const {data, iconName, load, tempIcon, currentFontColor, background, barColor,
       humidity, airPressure, realFeel, windDirection, windSpeed, uvIndex, visibility} = this.state;
      const { main } = this.props;
+    //  var targetTime = new Date(data.currently.time * 1000);
+    //  var timeZoneFromDB = parseInt(data.timezone); 
+    //  var tzDifference = timeZoneFromDB * 60 + targetTime.getTimezoneOffset();
+    //  var offsetTime = new Date(targetTime.getTime() + tzDifference * 60 * 1000); 
 
+    //  var cTime = offsetTime.toLocaleTimeString().split(":");
+    //  var pTime = cTime[0] > 12 ? `${cTime[0] - 12}:${cTime[1]}` : `${cTime[0]}:${cTime[1]}`
+    //  var meridim = cTime[0] > 12 ? 'pm' : 'am'
     
     return (
+            
+                          
             load ? <View>
                
-        <Tabs initialPage={2}>
+        <Tabs initialPage={0}>
           <Tab heading="Current"  
           tabStyle={{backgroundColor: barColor}} 
           activeTabStyle={{backgroundColor: barColor}}
@@ -213,6 +225,10 @@ getPic(icon){
             
             <Image source={this.getPic(this.state.data.currently.icon)} style={{height: 100, width: 103.17}}/>
             </Col>
+            </Row>
+            <Row>
+            {/* <Col>{pTime} {meridim}</Col> */}
+
             </Row>
             <Row style={{
               paddingTop: 60,

@@ -56,8 +56,11 @@ class Realtime extends React.Component {
   render() {
 
     const { temperature, humidity, lux, realFeel, airPressure, altitude, load } = this.state;
+    const { main } =this.props;
     
-    return  load ?  <View>
+    return  load ?  <View style={{
+                        backgroundColor: main.state.menuBarColor
+                   }}>
                 <Cards title='Temperature' data={temperature} unit='&#8451;' image={temperatureimage}/>
                 <Cards title='Humidity' data={humidity} unit='%' image={humidityimage}/>
                 <Cards title='Air Pressure' data={airPressure} unit='hPa' image={airpressureimage}/>
