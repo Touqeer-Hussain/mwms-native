@@ -93,16 +93,22 @@ openDrawer = () => {
 
         
 
-          <Drawer type='displace'
+          <Drawer type='displace' openDrawerOffset={0.15}
             ref={(ref) => { this._drawer = ref; }}
             content={
               <List style={{marginTop: Constants.statusBarHeight}}>
-                <ListItem>
+                <ListItem  noIndent noBorder style={{
+                  backgroundColor: 'black'
+                }}>
                 
-                <Image source={icon} style={{height: 200, width: null, flex: 1}}/>
+                <Image source={icon} style={{height: 40, width: 40}}/>
+                <Text style={{
+                  color: 'white',
+                  paddingLeft: 5
+                }}>My Weather Monitoring System</Text>
 
                 </ListItem>
-              <ListItem  style={{ backgroundColor: main.state.realTime ? main.state.outlineColor : 'white' }} onPress={() => {
+              <ListItem  noIndent noBorder style={{ backgroundColor: main.state.realTime ? main.state.outlineColor : 'white' }} onPress={() => {
                   main.setState({
                     realTime: true,
                     sensorControl: null,
@@ -119,9 +125,9 @@ openDrawer = () => {
                   })
                   this._drawer._root.close();
               }}>
-              <Text>Realtime</Text>
+              <Text style={{color: main.state.realTime ? 'white' : 'black'}}>Realtime</Text>
               </ListItem>
-              <ListItem style={{ backgroundColor: main.state.sensorControl ? main.state.outlineColor : 'white' }} onPress={() => {
+              <ListItem  noIndent noBorder style={{ backgroundColor: main.state.sensorControl ? main.state.outlineColor : 'white' }} onPress={() => {
                   main.setState({
                     realTime: null,
                     sensorControl: true,
@@ -138,9 +144,9 @@ openDrawer = () => {
                 })
                   this._drawer._root.close();
               }}>
-                <Text>Sensor Control</Text>
+                <Text style={{color: main.state.sensorControl ? 'white' : 'black'}}>Sensor Control</Text>
               </ListItem>
-              <ListItem style={{ backgroundColor: main.state.cities ? main.state.outlineColor : 'white' }} onPress={() => {
+              <ListItem noIndent noBorder style={{ backgroundColor: main.state.cities ? main.state.outlineColor : 'white' }} onPress={() => {
                   main.setState({
                     realTime: null,
                     sensorControl: null,
@@ -157,9 +163,9 @@ openDrawer = () => {
                 })
                   this._drawer._root.close();
               }}>
-                <Text>Cities</Text>
+                <Text style={{color: main.state.cities ? 'white' : 'black'}}>Cities</Text>
               </ListItem>
-              <ListItem style={{ backgroundColor: main.state.theme ? main.state.outlineColor : 'white' }} onPress={() => {
+              <ListItem noIndent noBorder style={{ backgroundColor: main.state.theme ? main.state.outlineColor : 'white' }} onPress={() => {
                   main.setState({
                     realTime: null,
                     sensorControl: null,
@@ -176,9 +182,9 @@ openDrawer = () => {
                 })
                   this._drawer._root.close();
               }}>
-                <Text>Theme</Text>
+                <Text style={{color: main.state.theme ? 'white' : 'black'}}>Theme</Text>
               </ListItem>
-              <ListItem style={{ backgroundColor: main.state.about ? main.state.outlineColor : 'white' }} onPress={() => {
+              <ListItem noIndent noBorder style={{ backgroundColor: main.state.about ? main.state.outlineColor : 'white' }} onPress={() => {
                   main.setState({
                     realTime: null,
                     sensorControl: null,
@@ -195,7 +201,7 @@ openDrawer = () => {
                 })
                   this._drawer._root.close();
               }}>
-                <Text>About</Text>
+                <Text style={{color: main.state.about ? 'white' : 'black'}}>About</Text>
               </ListItem>
             </List>
             } >
