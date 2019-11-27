@@ -70,6 +70,21 @@ class Citydetail extends React.Component {
         this.state.data.hourly.data.length = 6
 
           console.log(data.currently.time)
+            var targetTime = new Date(data.currently.time * 1000);
+            var timeZoneFromDB = parseInt(data.timezone); 
+            var tzDifference = timeZoneFromDB * 60 + targetTime.getTimezoneOffset();
+            var offsetTime = new Date(targetTime.getTime() + tzDifference * 60 * 1000); 
+
+            var cDate = offsetTime.toLocaleDateString()
+            console.log(offsetTime)
+
+            var cTime = offsetTime.toLocaleTimeString().split(":");
+            var pTime = cTime[0] > 12 ? `${cTime[0] - 12}:${cTime[1]}` : `${cTime[0]}:${cTime[1]}`
+            var meridim = cTime[0] > 12 ? 'pm' : 'am'
+
+            this.setState({
+              mainTime: pTime + " " + meridim + "  " + cDate
+            })
 
         if(data.currently.time >= data.daily.data[0].sunriseTime && data.currently.time <= data.daily.data[0].sunsetTime){
           this.setState({
@@ -111,7 +126,6 @@ class Citydetail extends React.Component {
 getPic(icon){
   switch (icon) {
     case 'clear-day':
-        console.log('c day')
 
         
           return require('../../assets/images/clear-day.png')
@@ -119,60 +133,50 @@ getPic(icon){
         
     break;
     case 'clear-night':
-        console.log('c N')
        
       return require('../../assets/images/clear-night.png')
     break;
     case 'rain':
-        console.log('rain')
         
         return require('../../assets/images/rain.png')
       
     break;
     case 'snow':
-        console.log('snow')
         
           return require('../../assets/images/snow.png')
    
     break;
     case 'sleet':
-        console.log('sleet')
        
           return require('../../assets/images/sleet.png')
      
     break;
     case 'wind':
-        console.log('wind')
       
         return require('../../assets/images/wind.png')
      
     break;
     case 'rain':
-        console.log('rain')
         
           return require('../../assets/images/rain.png')
    
     break;
     case 'fog':
-        console.log('fog')
         
         return require('../../assets/images/fog.png')
      
     break;
     case 'cloudy':
-        console.log('cloudy')
         
           return require('../../assets/images/cloudy.png')
      
     break;
     case 'partly-cloudy-day':
-        console.log('p c d')
         
           return require('../../assets/images/partly-cloudy-day.png')
       
     break;
     case 'partly-cloudy-night':
-        console.log('p c n')
         
           return require('../../assets/images/partly-cloudy-night.png')
       
@@ -186,7 +190,7 @@ getPic(icon){
   
   render() {
 
-     const {data, iconName, load, tempIcon, currentFontColor, background, barColor,
+     const {data, iconName, load, tempIcon, currentFontColor, background, barColor, mainTime,
       humidity, airPressure, realFeel, windDirection, windSpeed, uvIndex, visibility} = this.state;
      const { main } = this.props;
     //  var targetTime = new Date(data.currently.time * 1000);
@@ -227,11 +231,14 @@ getPic(icon){
             </Col>
             </Row>
             <Row>
-            {/* <Col>{pTime} {meridim}</Col> */}
+            <Col>
+            <Text style={{fontSize: 15, color: currentFontColor}}>{mainTime}</Text>
+
+            </Col>
 
             </Row>
             <Row style={{
-              paddingTop: 60,
+              paddingTop: 50,
               paddingBottom: 10,
               borderBottomWidth: 0.5,
               borderBottomEndRadius: 20,
