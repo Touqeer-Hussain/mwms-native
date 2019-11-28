@@ -61,12 +61,12 @@ class Realtime extends React.Component {
     return  load ?  <View style={{
                         backgroundColor: main.state.menuBarColor
                    }}>
-                <Cards title='Temperature' data={temperature} unit='&#8451;' image={temperatureimage}/>
-                <Cards title='Humidity' data={humidity} unit='%' image={humidityimage}/>
-                <Cards title='Air Pressure' data={airPressure} unit='hPa' image={airpressureimage}/>
-                <Cards title='Altitude' data={altitude} unit='m' image={altitudeimage}/>
-                <Cards title='Luminosity' data={lux} unit='lux' image={luminosityimage}/>
-                <Cards title='RealFeel' data={realFeel} unit='&#8451;' image={realfeelimage}/>
+                <Cards title='Temperature' data={temperature} unit='&#8451;' image={temperatureimage} main={main}/>
+                <Cards title='Humidity' data={humidity} unit='%' image={humidityimage} main={main}/>
+                <Cards title='Air Pressure' data={airPressure} unit='hPa' image={airpressureimage} main={main}/>
+                <Cards title='Altitude' data={altitude} unit='m' image={altitudeimage} main={main}/>
+                <Cards title='Luminosity' data={lux} unit='lux' image={luminosityimage} main={main}/>
+                <Cards title='RealFeel' data={realFeel} unit='&#8451;' image={realfeelimage} main={main}/>
             </View>    : 
             
             <View style={{

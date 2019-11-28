@@ -28,11 +28,11 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        realTime: null,
+        realTime: true,
         sensorControl: null,
         cities: null,
         about: null,
-        cityDetail: true,
+        cityDetail: null,
         historical: null,
         theme: null,
         search: null,

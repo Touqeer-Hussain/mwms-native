@@ -27,12 +27,13 @@ class Cards extends React.Component {
   
   render() {
 
-    const { title, data, unit, image } = this.props
+    const { title, data, unit, image, main } = this.props
 
     return (
             <View>
-                    <Card>
-            <CardItem>
+                    <Card >
+                      <View style={{borderRadius: 0, borderWidth: 2, borderColor: main.state.outlineColor}} >
+            <CardItem >
               <Left>
                 
                 <Body>
@@ -65,6 +66,7 @@ class Cards extends React.Component {
             <CardItem>
             
             </CardItem>
+            </View>
           </Card>
             </View>    
     

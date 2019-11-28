@@ -42,6 +42,7 @@ class Sensorcontrol extends React.Component {
   render() {
 
     const { dht22, bmp180, ldr, load } = this.state
+    const { main } = this.props
     
     return load ?  <View>
                 <ListItem>
