@@ -90,7 +90,7 @@ this.backKeyHandler();
   
   render() {
 
-    const { realTime, sensorControl, cities, about, cityDetail, historical, search, theme } = this.state;
+    const { realTime, sensorControl, cities, about, cityDetail, search, theme } = this.state;
 
     if (!this.state.isReady) {
       return <AppLoading />;
