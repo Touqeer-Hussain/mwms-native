@@ -70,7 +70,7 @@ export default class Cities extends React.Component {
             city: snap.val().city, 
             cityKey: snap.key, 
             country: snap.val().country,
-            timezone: snap.val().timezone
+            timezoneOffset: snap.val().timezone
           })
 
         }, () => {

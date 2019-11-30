@@ -64,7 +64,7 @@ export default class Citydetail extends React.Component {
 
       //     console.log(data.currently.time)
             var targetTime = new Date(data.currently.time * 1000);
-            var timeZoneFromDB = parseInt(data.timezone); 
+            var timeZoneFromDB = parseInt(data.timezoneOffset); 
             var tzDifference = timeZoneFromDB * 60 + targetTime.getTimezoneOffset();
             var offsetTime = new Date(targetTime.getTime() + tzDifference * 60 * 1000); 
 
@@ -467,7 +467,7 @@ getPic(icon){
             {data.hourly.data.map((snap, i) => {                                                
                                                    
                                                     var targetTime = new Date(snap.time * 1000);
-                                                    var timeZoneFromDB = parseInt(data.timezone); 
+                                                    var timeZoneFromDB = parseInt(data.timezoneOffset); 
                                                     var tzDifference = timeZoneFromDB * 60 + targetTime.getTimezoneOffset();
                                                     var offsetTime = new Date(targetTime.getTime() + tzDifference * 60 * 1000); 
 
@@ -516,7 +516,7 @@ getPic(icon){
             {data.daily.data.map((snap, i) => {                                                
                                                    
                                                     var targetTime = new Date(snap.time * 1000);
-                                                    var timeZoneFromDB = parseInt(data.timezone); 
+                                                    var timeZoneFromDB = parseInt(data.timezoneOffset); 
                                                     var tzDifference = timeZoneFromDB * 60 + targetTime.getTimezoneOffset();
                                                     var offsetTime = new Date(targetTime.getTime() + tzDifference * 60 * 1000); 
 
