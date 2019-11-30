@@ -121,7 +121,6 @@ openDrawer = () => {
                     theme: null,
                     about: null,
                     cityDetail: null,
-                    historical: null, 
                     search: null
                   })
                   this.setState({
@@ -140,7 +139,6 @@ openDrawer = () => {
                     theme: null,
                     about: null,
                     cityDetail: null,
-                    historical: null, 
                     search: null
                   })
                   this.setState({
@@ -159,7 +157,6 @@ openDrawer = () => {
                     theme: null,
                     about: null,
                     cityDetail: null,
-                    historical: null, 
                     search: null
                   })
                   this.setState({
@@ -178,7 +175,6 @@ openDrawer = () => {
                     about: null,
                     theme: true,
                     cityDetail: null,
-                    historical: null, 
                     search: null
                   })
                   this.setState({
@@ -197,7 +193,6 @@ openDrawer = () => {
                     theme: null,
                     about: true,
                     cityDetail: null,
-                    historical: null, 
                     search: null
                   })
                   this.setState({
@@ -234,7 +229,6 @@ openDrawer = () => {
                           theme: null,
                           about: null,
                           cityDetail: null,
-                          historical: null, 
                           search: true,
                           title: 'Search'
                         })
