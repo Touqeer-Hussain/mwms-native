@@ -1,6 +1,5 @@
 import React from 'react';
 import { 
-    Container,
     Grid,
     Row,
     Col,
@@ -13,7 +12,7 @@ import logoname from '../../assets/images/mwms.jpg'
 import logo from '../../assets/images/logo.png'
 
 
-class About extends React.Component {
+export default class About extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -76,5 +75,3 @@ class About extends React.Component {
     );
   }
 }
-
-export default About;

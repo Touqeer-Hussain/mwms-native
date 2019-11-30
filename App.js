@@ -1,17 +1,11 @@
 import React from 'react';
+import { BackHandler } from 'react-native'
+
 import { AppLoading } from 'expo';
-
-
-import { 
-    Container,
-    
-    
-  } from 'native-base';
-
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
+
 import firebase from './src/config/firebase'
-import { BackHandler } from 'react-native'
 
 import Menu from './src/menu/menu'
 
@@ -33,7 +27,6 @@ export default class App extends React.Component {
         cities: null,
         about: null,
         cityDetail: null,
-        historical: null,
         theme: null,
         search: null,
         isReady: false,
@@ -60,8 +53,8 @@ export default class App extends React.Component {
               isReady: true
           })
         })
+        
 this.backKeyHandler();
-
 
         
   }
@@ -107,22 +100,19 @@ this.backKeyHandler();
     return (
 
     
-            
               
-              <Menu main={this} >
+              <Menu main={this}>
+               
         {realTime && <Realtime main={this} />}
         {sensorControl && <Sensorcontrol main={this} />}
         {cities && <Cities main={this} />}
         {cityDetail && <Citydetail main={this} />}
-        {historical && <Historical main={this} />}
         {theme && <Theme main={this} />}
         {about && <About main={this} />}
         {search && <Search main={this} />}
         
               </Menu>
-            
-    
-    
+             
     
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { 
-  Container, Header, Content, ListItem, Text, Radio, Right, Left, Body, Switch
+ ListItem, Text, Right, Body, Switch
     
   } from 'native-base';
 
@@ -11,7 +11,7 @@ import { Bars } from 'react-native-loader';
 import firebase from '../../config/firebase'
 
 
-class Sensorcontrol extends React.Component {
+export default class Sensorcontrol extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -103,10 +103,9 @@ class Sensorcontrol extends React.Component {
               padding: 10
             }} >
               
-              <Bars size={30} color="teal" />
+              <Bars size={30} color={main.state.menuBarColor} />
               
             </View>
   }
 }
 
-export default Sensorcontrol;

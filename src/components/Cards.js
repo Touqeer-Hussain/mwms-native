@@ -1,17 +1,17 @@
 import React from 'react';
 import { 
-    Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right
+   Card, CardItem, Thumbnail, Text, Left, Body, Right
     
   } from 'native-base';
 
-import { View, ActivityIndicator, Image } from 'react-native'
+import { View } from 'react-native'
 
 
 
 
 
 
-class Cards extends React.Component {
+export default class Cards extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,10 +19,6 @@ class Cards extends React.Component {
     };
   }
 
-
-  componentDidMount() {
-
-  }
 
   
   render() {
@@ -40,7 +36,6 @@ class Cards extends React.Component {
                   <Text  style={{
                       fontSize: 28
                   }} >{title}</Text>
-                  {/* <Text note>GeekyAnts</Text> */}
                 </Body>
               </Left>
               <Right>
@@ -75,4 +70,3 @@ class Cards extends React.Component {
   }
 }
 
-export default Cards;

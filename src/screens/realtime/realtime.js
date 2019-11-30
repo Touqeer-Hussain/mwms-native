@@ -1,16 +1,14 @@
 import React from 'react';
-import { 
-    Container,
-    Text
-    
-  } from 'native-base';
-
-import { View, ActivityIndicator } from 'react-native'
-
-import firebase from '../../config/firebase'
-import Cards from '../../components/Cards'
+import { View } from 'react-native'
 
 import { Bars } from 'react-native-loader';
+
+
+import firebase from '../../config/firebase'
+
+
+import Cards from '../../components/Cards'
+
 
 import temperatureimage from '../../assets/images/temperature.png'
 import humidityimage from '../../assets/images/humidity.png'
@@ -20,7 +18,7 @@ import luminosityimage from '../../assets/images/luminosity.png'
 import altitudeimage from '../../assets/images/altitude.png'
 
 
-class Realtime extends React.Component {
+export default class Realtime extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,6 +34,7 @@ class Realtime extends React.Component {
 
 
   componentDidMount() {
+
     firebase.database().ref('current').on('value', data =>{
       this.setState({
           temperature: Math.round(data.val().temperature),
@@ -61,12 +60,12 @@ class Realtime extends React.Component {
     return  load ?  <View style={{
                         backgroundColor: main.state.menuBarColor
                    }}>
-                <Cards title='Temperature' data={temperature} unit='&#8451;' image={temperatureimage} main={main}/>
-                <Cards title='Humidity' data={humidity} unit='%' image={humidityimage} main={main}/>
-                <Cards title='Air Pressure' data={airPressure} unit='hPa' image={airpressureimage} main={main}/>
-                <Cards title='Altitude' data={altitude} unit='m' image={altitudeimage} main={main}/>
-                <Cards title='Luminosity' data={lux} unit='lux' image={luminosityimage} main={main}/>
-                <Cards title='RealFeel' data={realFeel} unit='&#8451;' image={realfeelimage} main={main}/>
+                <Cards title='Temperature' data={temperature} unit='&#8451;' image={temperatureimage} main={main} />
+                <Cards title='Humidity' data={humidity} unit='%' image={humidityimage} main={main} />
+                <Cards title='Air Pressure' data={airPressure} unit='hPa' image={airpressureimage} main={main} />
+                <Cards title='Altitude' data={altitude} unit='m' image={altitudeimage} main={main} />
+                <Cards title='Luminosity' data={lux} unit='lux' image={luminosityimage} main={main} />
+                <Cards title='RealFeel' data={realFeel} unit='&#8451;' image={realfeelimage} main={main} />
             </View>    : 
             
             <View style={{
@@ -77,7 +76,7 @@ class Realtime extends React.Component {
               padding: 10
             }} >
               
-              <Bars size={30} color="teal" />
+              <Bars size={30} color={main.state.menuBarColor} />
               
             </View>
     
@@ -85,4 +84,3 @@ class Realtime extends React.Component {
   }
 }
 
-export default Realtime;

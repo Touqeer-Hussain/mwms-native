@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Container, Header, Toast, Item, Input, Icon, Button, Text, List, ListItem, Content, Left, Right, Body } from 'native-base';
-import { View, ScrollView, Alert } from 'react-native';
+import { Container, Header, Item, Input, Icon, Text, List, ListItem, Content, Right, Body } from 'native-base';
+import { View, Alert } from 'react-native';
 
 import firebase from '../../config/firebase'
 
 import { Bars } from 'react-native-loader';
 
-class Search extends Component {
+export default class Search extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -86,7 +86,7 @@ class Search extends Component {
                                  
                                         
                                       let cityFound = false;
-                                      console.log(this.state.citiesList.length)
+                                      // console.log(this.state.citiesList.length)
           
                                       if(this.state.citiesList.length >= 1){
                           
@@ -142,7 +142,6 @@ class Search extends Component {
                                               [
                                                 
                                                 {text: 'OK', onPress: () => {
-                                                    console.log('Runt')
                                                    }
                                               },
                                               ],
@@ -237,5 +236,3 @@ class Search extends Component {
     );
   }
 }
-
-export default Search;

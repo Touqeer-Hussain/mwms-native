@@ -1,27 +1,20 @@
 import React from 'react';
 import { 
-    Container,
     Icon,
-    Button,
     Text 
     
   } from 'native-base';
 
 import { View } from 'react-native'
 
-
-
-
-
+import ColorPalette from 'react-native-color-palette'
 import { Bars } from 'react-native-loader';
 
-import Exximg from '../../assets/images/fist.jpg'
 
 import firebase from '../../config/firebase'
 
-import ColorPalette from 'react-native-color-palette'
 
-class Theme extends React.Component {
+export default class Theme extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,15 +50,7 @@ class Theme extends React.Component {
   }
 
 
-  componentDidMount() {
-
-  }
-
-  componentWillUnmount(){
-
-  }
-  
-
+ 
 
   
   render() {
@@ -120,4 +105,3 @@ class Theme extends React.Component {
   }
 }
 
-export default Theme;

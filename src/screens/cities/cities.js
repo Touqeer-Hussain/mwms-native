@@ -1,11 +1,7 @@
 import React from 'react';
-import { 
-    Container,
-    Text
-    
-  } from 'native-base';
 
-import { View, Alert } from 'react-native'
+
+import { View } from 'react-native'
 
 import { Bars } from 'react-native-loader';
 
@@ -18,7 +14,7 @@ import Citycards from '../../components/Citycards'
 import firebase from '../../config/firebase'
 
 
-class Cities extends React.Component {
+export default class Cities extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -71,7 +67,7 @@ class Cities extends React.Component {
         this.setState({
           citiesList: this.state.citiesList.concat({
             ...res, 
-            "city": snap.val().city, 
+            city: snap.val().city, 
             cityKey: snap.key, 
             country: snap.val().country,
             timezone: snap.val().timezone
@@ -118,7 +114,7 @@ class Cities extends React.Component {
                   
                 
                     
-                return <Citycards data={snap} city={snap.city} country={snap.country} tempIcon={tempIcon} image={snap.currently.icon}  temp={Math.round(snap.currently.temperature)}  date={new Date(snap.currently.time * 1000).toDateString()} unit='&#8451;' main={main} key={i}/>
+                return <Citycards  data={snap} city={snap.city} country={snap.country} tempIcon={tempIcon} image={snap.currently.icon}  temp={Math.round(snap.currently.temperature)}  date={new Date(snap.currently.time * 1000).toDateString()} unit='&#8451;' main={main} key={i}/>
              
            
            
@@ -142,5 +138,3 @@ class Cities extends React.Component {
     
   }
 }
-
-export default Cities;

@@ -8,9 +8,10 @@
       "ios",
       "android"
     ],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/icon2.png",
+    "icon": "./assets/icon.png",
+    
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -22,6 +23,9 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android": {
+      "package": "com.bbsul.mwms"
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.bbsul.mwms"

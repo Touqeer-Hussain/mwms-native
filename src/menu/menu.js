@@ -1,4 +1,9 @@
 import React from 'react';
+import { Image, Alert, AsyncStorage } from 'react-native'
+
+import  Constants  from 'expo-constants'
+
+
 import { 
     Container,
     Header, 
@@ -16,40 +21,39 @@ import {
     Right,
     
   } from 'native-base';
-import { Image, Alert, AsyncStorage } from 'react-native'
 
-import  Constants  from 'expo-constants'
-
-import icon from '../assets/images/icon.png'
 
 import firebase from '../config/firebase'
 
-class Menu extends React.Component {
+import icon from '../assets/images/icon.png'
+
+
+export default class Menu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isReady: false,
       title: "Realtime",
       data: {},
-      trip: true
+      trip: true,
+      citDet: true
     };
   }
 
-async componentDidMount(){
-  
-  
-}
 
-componentDidUpdate(){
+async componentDidUpdate(){
   
   if(this.props.main.state.search == true && this.state.trip == true){
     this.getHeader();
-    console.log('Menu')
+    //console.log('Menu')
   }
 
-  if(this.props.main.state.cityDetail == true && this.state.trip == true){
-    this.getHeader();
-    console.log('Menu')
+  if(this.props.main.state.cityDetail == true && this.props.main.state.cities == null && this.state.citDet == true){
+    // console.log('hua ')
+    this.setState({
+      title: this.props.main.state.title,
+      citDet: null
+    })
   }
 
   if(this.props.main.state.cities == true && this.state.trip == true){
@@ -57,7 +61,7 @@ componentDidUpdate(){
       title: 'Cities',
       trip: null
     })
-    console.log('Menu')
+    //console.log('Menu')
   }
 
 
@@ -74,7 +78,7 @@ async getHeader(){
   this.setState({
     data: JSON.parse(await AsyncStorage.getItem('data'))
   }, () => {
-    console.log(this.state.data.city)
+    //console.log(this.state.data.city)
   })
 }
   
@@ -93,10 +97,11 @@ openDrawer = () => {
 
         
 
-          <Drawer type='displace' openDrawerOffset={0.15}
+          <Drawer type='displace' openDrawerOffset={0.15} 
             ref={(ref) => { this._drawer = ref; }}
             content={
-              <List style={{marginTop: Constants.statusBarHeight}}>
+              <List style={{ backgroundColor: 'black',
+                paddingTop: Constants.statusBarHeight,}} >
                 <ListItem  noIndent noBorder style={{
                   backgroundColor: 'black'
                 }}>
@@ -206,7 +211,8 @@ openDrawer = () => {
             </List>
             } >
                 
-    <Container style={{marginTop: Constants.statusBarHeight}}>
+    <Container  style={{ borderTopColor: main.state.menuBarColor,
+                borderTopWidth: Constants.statusBarHeight,}}>
             
                 <Header style={{ backgroundColor: main.state.menuBarColor }} >
                     
@@ -220,7 +226,7 @@ openDrawer = () => {
                     </Body>   
                     <Right>
                       
-                    {main.state.cities &&  <Button style={{backgroundColor: main.state.outlineColors}} onPress={() => {
+                    {main.state.cities &&  <Button bordered style={{borderWidth: 2, borderColor: main.state.outlineColors}} onPress={() => {
                         main.setState({
                           realTime: null,
                           sensorControl: null,
@@ -236,7 +242,7 @@ openDrawer = () => {
                           trip: true
                       })
                       }}>
-                        <Icon name="add"/>
+                        <Icon name="add" color={main.state.outlineColor} />
                       </Button>}
                       
                       {main.state.cityDetail &&   <View>
@@ -249,7 +255,7 @@ openDrawer = () => {
                               { },
                               {
                                 text: 'Cancel',
-                                onPress: () => console.log('Cancel Pressed'),
+                                onPress: () => {},
                                 style: 'cancel',
                               },
                               { text: 'OK', onPress: async () => {
@@ -300,4 +306,3 @@ openDrawer = () => {
   }
 }
 
-export default Menu;

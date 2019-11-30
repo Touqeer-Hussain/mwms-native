@@ -1,18 +1,11 @@
 import React from 'react';
 import { 
-    Container,
     Text,
-    Header,
     Tab,
     Tabs,
-    Card, CardItem, Thumbnail, Button, Icon, Left, Body, Right,
-    List,
-    ListItem,
     Grid,
     Row,
     Col,
-    
-    
   } from 'native-base';
 
 
@@ -27,7 +20,7 @@ import { Bars } from 'react-native-loader';
 
 
 
-class Citydetail extends React.Component {
+export default class Citydetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -69,14 +62,14 @@ class Citydetail extends React.Component {
         this.state.data.daily.data.length = 6
         this.state.data.hourly.data.length = 6
 
-          console.log(data.currently.time)
+      //     console.log(data.currently.time)
             var targetTime = new Date(data.currently.time * 1000);
             var timeZoneFromDB = parseInt(data.timezone); 
             var tzDifference = timeZoneFromDB * 60 + targetTime.getTimezoneOffset();
             var offsetTime = new Date(targetTime.getTime() + tzDifference * 60 * 1000); 
 
             var cDate = offsetTime.toLocaleDateString()
-            console.log(offsetTime)
+            // console.log(offsetTime)
 
             var cTime = offsetTime.toLocaleTimeString().split(":");
             var pTime = cTime[0] > 12 ? `${cTime[0] - 12}:${cTime[1]}` : `${cTime[0]}:${cTime[1]}`
@@ -192,15 +185,9 @@ getPic(icon){
 
      const {data, iconName, load, tempIcon, currentFontColor, background, barColor, mainTime,
       humidity, airPressure, realFeel, windDirection, windSpeed, uvIndex, visibility} = this.state;
-     const { main } = this.props;
-    //  var targetTime = new Date(data.currently.time * 1000);
-    //  var timeZoneFromDB = parseInt(data.timezone); 
-    //  var tzDifference = timeZoneFromDB * 60 + targetTime.getTimezoneOffset();
-    //  var offsetTime = new Date(targetTime.getTime() + tzDifference * 60 * 1000); 
 
-    //  var cTime = offsetTime.toLocaleTimeString().split(":");
-    //  var pTime = cTime[0] > 12 ? `${cTime[0] - 12}:${cTime[1]}` : `${cTime[0]}:${cTime[1]}`
-    //  var meridim = cTime[0] > 12 ? 'pm' : 'am'
+     const { main } = this.props;
+   
     
     return (
             
@@ -223,7 +210,7 @@ getPic(icon){
 
               <Col size={6} style={{paddingLeft:0 }}>
             
-            <Text style={{fontSize: 70, color: currentFontColor}}>{Math.round(data.currently.temperature)}<Text style={{fontSize: 30,}}>&#8451;</Text></Text>
+            <Text style={{fontSize: 70, color: currentFontColor}}>{Math.round(data.currently.temperature)}<Text style={{fontSize: 30, color: currentFontColor}}>&#8451;</Text></Text>
             </Col>
             <Col size={7} style={{flex: 5}}>
             
@@ -615,4 +602,3 @@ getPic(icon){
   }
 }
 
-export default Citydetail;
