@@ -101,18 +101,15 @@ export default class Citycards extends React.Component {
     return (
             <View>
           <Card  onTouchEnd={async () => {
-            try {
+            console.log('Cities Card', city)
+              await AsyncStorage.setItem('data', JSON.stringify(data));
+
               main.setState({
                 title: city,
-                cities: null,
                 cityDetail: true,
-                
+                cities: null, 
             })
-              await AsyncStorage.setItem('data', JSON.stringify(data));
-            } catch (error) {
-              // Error saving data
-            }
-       
+            
           
          
         

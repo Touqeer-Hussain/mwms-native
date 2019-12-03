@@ -35,9 +35,7 @@ export default class Cities extends React.Component {
 
   
   componentWillUnmount(){
-    if(this.state.citiesList.length > 0){
       this.citiesData.off('child_added')
-    }
     this.citiesNumRef.off('value')
     
   }

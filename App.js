@@ -1,5 +1,4 @@
 import React from 'react';
-import { BackHandler } from 'react-native'
 
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
@@ -53,34 +52,11 @@ export default class App extends React.Component {
           })
         })
         
-this.backKeyHandler();
 
         
   }
 
-  backKeyHandler(){
-    
-    BackHandler.addEventListener('hardwareBackPress', () => {
-      
-      if (this.state.cityDetail == true) {
-        this.setState({
-          cities: true,
-          cityDetail: null,
-          title: 'Cities'
-        })  
-        return true
-      }
-      if(this.state.search == true){
-        this.setState({
-          cities: true,
-          search: null,
-          title: 'Cities'
-        })  
-        return true
-      }
-      return false
-    });
-  }
+  
 
   componentWillUnmount(){
     this.themeRef.off('value')

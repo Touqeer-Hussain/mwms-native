@@ -3,10 +3,16 @@ import {
     Grid,
     Row,
     Col,
+    Icon
     
   } from 'native-base';
 
 import { View, Image, Text } from 'react-native'
+
+import { Video } from 'expo-av'
+
+import  Constants  from 'expo-constants'
+
 
 import logoname from '../../assets/images/mwms.jpg'
 import logo from '../../assets/images/logo.png'
@@ -49,6 +55,26 @@ export default class About extends React.Component {
                       </Col>
 
               </Row>
+              <Row >
+          <Video
+                                source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/to-do-applica.appspot.com/o/FYP%20-%20Video%20.mp4?alt=media&token=1df4b763-d1bd-43ff-bb53-87b9dc1d21f5' }}
+                                rate={1.0}
+                                volume={1.0}
+                                 isMuted={false}
+                                resizeMode="contain"
+                                shouldPlay
+                                useNativeControls
+                                isLooping
+                                style={{ width: 360, height: 300, borderWidth: 2, borderColor: this.props.main.state.outlineColor }}
+                />
+          </Row>
+          <Row style={{paddingTop: 40, paddingBottom: 10}} >  
+                      <Col >
+              
+                              <Text style={{fontSize: 40}}>Introduction</Text>
+                      </Col>
+
+              </Row>
           <Col style={{borderWidth: 2, borderColor: this.props.main.state.outlineColor, margin: 5}}>
               <Row style={{padding: 12}}>
                     <Text style={{fontSize: 18}}>
@@ -66,9 +92,97 @@ export default class About extends React.Component {
                     </Text>
               </Row>
           </Col>
+          <Row style={{paddingTop: 40, paddingBottom: 10}} >  
+                      <Col >
+              
+                              <Text style={{fontSize: 40}}>Credit</Text>
+                      </Col>
+
+              </Row>
+
+              <Col style={{borderWidth: 2, borderColor: this.props.main.state.outlineColor, margin: 5, alignItems: 'center'}}>
+              <Row style={{paddingTop: 4}}>
+                    <Text style={{fontSize: 24}}>
+                        Supervisior:
+                    </Text>
+
+                   
+              </Row>
+              <Row style={{paddingTop: 2}}>
+                    
+                    <Text style={{fontSize: 18}}>
+                        Ali Muhammad Amour
+                    </Text>
+              </Row>
+              <Row style={{paddingTop: 2}}>
+                    
+              <Icon name="logo-github" style={{fontSize: 30}}/>
+              <Icon name="logo-facebook" style={{fontSize: 30, paddingLeft: 10}}/>
+              <Icon name="logo-google" style={{fontSize: 30, paddingLeft: 10}}/>
+              </Row>
+              <Row style={{paddingTop:  20}}>
+                    <Text style={{fontSize: 30}}>
+                        Developer:
+                    </Text>
+
+                   
+              </Row>
+              <Row style={{paddingTop: 2}}>
+                    
+                    <Text style={{fontSize: 22}}>
+                        Touqeer Hussain
+                    </Text>
+              </Row>
+              <Row style={{paddingTop: 2}}>
+                    
+              <Icon name="logo-github" style={{fontSize: 30}}/>
+              <Icon name="logo-facebook" style={{fontSize: 30, paddingLeft: 10}}/>
+              <Icon name="logo-google" style={{fontSize: 30, paddingLeft: 10}}/>
+              </Row>
+              <Row style={{paddingTop:  20}}>
+                    <Text style={{fontSize: 24}}>
+                        Designer:
+                    </Text>
+
+                   
+              </Row>
+              <Row style={{paddingTop: 2}}>
+                    
+                    <Text style={{fontSize: 18}}>
+                        Muhammad Sajid Rajput
+                    </Text>
+              </Row>
+              <Row style={{paddingTop: 2}}>
+                    
+              <Icon name="logo-github" style={{fontSize: 30}}/>
+              <Icon name="logo-facebook" style={{fontSize: 30, paddingLeft: 10}}/>
+              <Icon name="logo-google" style={{fontSize: 30, paddingLeft: 10}}/>
+              </Row>
+              <Row style={{paddingTop: 20}}>
+                    <Text style={{fontSize: 24}}>
+                        Writer:
+                    </Text>
+
+                   
+              </Row>
+              <Row style={{paddingTop: 2, paddingBottom: 10}}>
+                    
+                    <Text style={{fontSize: 18}}>
+                        Syed Ejaz Hussain Shah
+                    </Text>
+              </Row>
+              <Row style={{paddingTop: 2}}>
+                    
+              <Icon name="logo-github" style={{fontSize: 30}}/>
+              <Icon name="logo-facebook" style={{fontSize: 30, paddingLeft: 10}}/>
+              <Icon name="logo-google" style={{fontSize: 30, paddingLeft: 10}}/>
+              </Row>
+          </Col>
                   
                       
                     </Grid>
+                   
+                    
             </View>    
     
     

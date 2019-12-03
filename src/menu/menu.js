@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Alert, AsyncStorage } from 'react-native'
+import { Image, Alert, AsyncStorage, BackHandler } from 'react-native'
 
 import  Constants  from 'expo-constants'
 
@@ -63,11 +63,42 @@ async componentDidUpdate(){
     })
     //console.log('Menu')
   }
-
-
-    
 }
 
+componentDidMount(){
+    this.backKeyHandler();
+}
+
+backKeyHandler(){
+    
+  BackHandler.addEventListener('hardwareBackPress', () => {
+    
+    if (this.props.main.state.cityDetail == true) {
+      this.props.main.setState({
+        cities: true,
+        cityDetail: null,
+        title: "Cities"
+      })
+      this.setState({
+        title: "Cities",
+        citDet: true
+      })  
+      return true
+    }
+    if(this.props.main.state.search == true){
+      this.props.main.setState({
+        cities: true,
+        search: null,
+      })  
+      this.setState({
+        title: "Cities",
+        citDet: true
+      }) 
+      return true
+    }
+    return false
+  });
+}
 
 
 async getHeader(){
