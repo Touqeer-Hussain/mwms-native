@@ -117,8 +117,8 @@ export default class About extends React.Component {
               <Row style={{paddingTop: 2}}>
                     
               <Icon name="logo-github" style={{fontSize: 30}}/>
-              <Icon name="logo-facebook" style={{fontSize: 30, paddingLeft: 10}}/>
-              <Icon name="logo-google" style={{fontSize: 30, paddingLeft: 10}}/>
+              <Icon name="logo-facebook"  style={{fontSize: 30, paddingLeft: 10, color: '#3578E5' }}/>
+              <Icon name="md-mail" style={{fontSize: 30, paddingLeft: 10, color: '#d93025'}}/>
               </Row>
               <Row style={{paddingTop:  20}}>
                     <Text style={{fontSize: 30}}>
@@ -129,15 +129,15 @@ export default class About extends React.Component {
               </Row>
               <Row style={{paddingTop: 2}}>
                     
-                    <Text style={{fontSize: 22}}>
+                    <Text style={{fontSize: 18}}>
                         Touqeer Hussain
                     </Text>
               </Row>
               <Row style={{paddingTop: 2}}>
                     
               <Icon name="logo-github" style={{fontSize: 30}}/>
-              <Icon name="logo-facebook" style={{fontSize: 30, paddingLeft: 10}}/>
-              <Icon name="logo-google" style={{fontSize: 30, paddingLeft: 10}}/>
+              <Icon name="logo-facebook"  style={{fontSize: 30, paddingLeft: 10, color: '#3578E5' }}/>
+              <Icon name="md-mail" style={{fontSize: 30, paddingLeft: 10, color: '#d93025'}}/>
               </Row>
               <Row style={{paddingTop:  20}}>
                     <Text style={{fontSize: 24}}>
@@ -155,8 +155,8 @@ export default class About extends React.Component {
               <Row style={{paddingTop: 2}}>
                     
               <Icon name="logo-github" style={{fontSize: 30}}/>
-              <Icon name="logo-facebook" style={{fontSize: 30, paddingLeft: 10}}/>
-              <Icon name="logo-google" style={{fontSize: 30, paddingLeft: 10}}/>
+              <Icon name="logo-facebook"  style={{fontSize: 30, paddingLeft: 10, color: '#3578E5' }}/>
+              <Icon name="md-mail" style={{fontSize: 30, paddingLeft: 10, color: '#d93025'}}/>
               </Row>
               <Row style={{paddingTop: 20}}>
                     <Text style={{fontSize: 24}}>
@@ -174,8 +174,8 @@ export default class About extends React.Component {
               <Row style={{paddingTop: 2}}>
                     
               <Icon name="logo-github" style={{fontSize: 30}}/>
-              <Icon name="logo-facebook" style={{fontSize: 30, paddingLeft: 10}}/>
-              <Icon name="logo-google" style={{fontSize: 30, paddingLeft: 10}}/>
+              <Icon name="logo-facebook"  style={{fontSize: 30, paddingLeft: 10, color: '#3578E5' }}/>
+              <Icon name="md-mail" style={{fontSize: 30, paddingLeft: 10, color: '#d93025'}}/>
               </Row>
           </Col>
                   

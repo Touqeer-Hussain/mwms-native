@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Alert, AsyncStorage, BackHandler } from 'react-native'
+import { Image, Alert, AsyncStorage, BackHandler, ScrollView } from 'react-native'
 
 import  Constants  from 'expo-constants'
 
@@ -42,7 +42,7 @@ export default class Menu extends React.Component {
 
 
 async componentDidUpdate(){
-  
+      this.scRef.scrollWithoutAnimationTo(0, 0)
   if(this.props.main.state.search == true && this.state.trip == true){
     this.getHeader();
     //console.log('Menu')
@@ -319,9 +319,9 @@ openDrawer = () => {
                       </View>}
                     </Right>
                 </Header>
-                 <Content>
+                 <ScrollView ref={ref => this.scRef = ref}>
                    {this.props.children}
-                </Content>
+                </ScrollView>
                 </Container>
 
           </Drawer>
