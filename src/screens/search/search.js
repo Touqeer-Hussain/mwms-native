@@ -82,7 +82,7 @@ export default class Search extends Component {
                         { this.state.searchList && this.state.searchList.results.length >= 1 && this.state.searchList.results.map((data, i) => { 
                                     
                             
-                                    return   data.confidence <= 5  && ( data.components.city || data.components.state ) && data.components.country ? <ListItem key={data.annotations.geohash} onPress={() => {
+                                    return   data.confidence <= 5  && ( data.components.city || data.components.state ) && data.components.country && <ListItem key={data.annotations.geohash} onPress={() => {
                                  
                                         
                                       let cityFound = false;
@@ -206,7 +206,7 @@ export default class Search extends Component {
                               <Right>
                               <Icon name={'md-arrow-dropright'} />
                               </Right>
-                            </ListItem> : <View></View>
+                            </ListItem> 
                         
                       
 

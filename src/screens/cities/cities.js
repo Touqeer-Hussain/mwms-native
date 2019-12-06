@@ -45,7 +45,7 @@ export default class Cities extends React.Component {
   componentDidMount() {
     this.citiesNumRef = firebase.database().ref('cities')
     this.citiesNumRef.on("value", async snap => { 
-      console.log(snap.numChildren())
+      // console.log(snap.numChildren())
       this.setState({
         citiesLength: snap.numChildren()
       }, () => {
