@@ -7,7 +7,7 @@ import {
     
   } from 'native-base';
 
-import { View, Image, Text } from 'react-native'
+import { View, Image, Text, Linking } from 'react-native'
 
 import { Video } from 'expo-av'
 
@@ -116,9 +116,9 @@ export default class About extends React.Component {
               </Row>
               <Row style={{paddingTop: 2}}>
                     
-              <Icon name="logo-github" style={{fontSize: 30}}/>
-              <Icon name="logo-facebook"  style={{fontSize: 30, paddingLeft: 10, color: '#3578E5' }}/>
-              <Icon name="md-mail" style={{fontSize: 30, paddingLeft: 10, color: '#d93025'}}/>
+              <Icon name="logo-github" style={{fontSize: 30}} onPress={ ()=>{ Linking.openURL('https://github.com/Touqeer-Hussain')}}/>
+              <Icon name="logo-facebook"  style={{fontSize: 30, paddingLeft: 10, color: '#3578E5' }} onPress={ ()=>{ Linking.openURL('https://www.facebook.com/touqeerhussaintx')}}/>
+              <Icon name="md-mail" style={{fontSize: 30, paddingLeft: 10, color: '#d93025'}}  onPress={ ()=>{ Linking.openURL('mailto:touqeerhussain@zoho.com')}}/>
               </Row>
               <Row style={{paddingTop:  20}}>
                     <Text style={{fontSize: 30}}>
@@ -135,9 +135,9 @@ export default class About extends React.Component {
               </Row>
               <Row style={{paddingTop: 2}}>
                     
-              <Icon name="logo-github" style={{fontSize: 30}}/>
-              <Icon name="logo-facebook"  style={{fontSize: 30, paddingLeft: 10, color: '#3578E5' }}/>
-              <Icon name="md-mail" style={{fontSize: 30, paddingLeft: 10, color: '#d93025'}}/>
+              <Icon name="logo-github" style={{fontSize: 30}} onPress={ ()=>{ Linking.openURL('https://github.com/Touqeer-Hussain')}}/>
+              <Icon name="logo-facebook"  style={{fontSize: 30, paddingLeft: 10, color: '#3578E5' }} onPress={ ()=>{ Linking.openURL('https://www.facebook.com/touqeerhussaintx')}}/>
+              <Icon name="md-mail" style={{fontSize: 30, paddingLeft: 10, color: '#d93025'}}  onPress={ ()=>{ Linking.openURL('mailto:touqeerhussain@zoho.com')}}/>
               </Row>
               <Row style={{paddingTop:  20}}>
                     <Text style={{fontSize: 24}}>
@@ -154,9 +154,9 @@ export default class About extends React.Component {
               </Row>
               <Row style={{paddingTop: 2}}>
                     
-              <Icon name="logo-github" style={{fontSize: 30}}/>
-              <Icon name="logo-facebook"  style={{fontSize: 30, paddingLeft: 10, color: '#3578E5' }}/>
-              <Icon name="md-mail" style={{fontSize: 30, paddingLeft: 10, color: '#d93025'}}/>
+              <Icon name="logo-github" style={{fontSize: 30}} onPress={ ()=>{ Linking.openURL('https://github.com/MxSAJIDxR')}}/>
+              <Icon name="logo-facebook"  style={{fontSize: 30, paddingLeft: 10, color: '#3578E5' }} onPress={ ()=>{ Linking.openURL('https://www.facebook.com/MxSajidxR')}}/>
+              <Icon name="md-mail" style={{fontSize: 30, paddingLeft: 10, color: '#d93025'}}  onPress={ ()=>{ Linking.openURL('mailto:www.sajidrajput666@gmail.com')}}/>
               </Row>
               <Row style={{paddingTop: 20}}>
                     <Text style={{fontSize: 24}}>
@@ -173,9 +173,9 @@ export default class About extends React.Component {
               </Row>
               <Row style={{paddingTop: 2}}>
                     
-              <Icon name="logo-github" style={{fontSize: 30}}/>
-              <Icon name="logo-facebook"  style={{fontSize: 30, paddingLeft: 10, color: '#3578E5' }}/>
-              <Icon name="md-mail" style={{fontSize: 30, paddingLeft: 10, color: '#d93025'}}/>
+              <Icon name="logo-github" style={{fontSize: 30}} onPress={ ()=>{ Linking.openURL('https://github.com/ejazshah')}}/>
+              <Icon name="logo-facebook"  style={{fontSize: 30, paddingLeft: 10, color: '#3578E5' }} onPress={ ()=>{ Linking.openURL('https://www.facebook.com/ejaz.shah.927')}}/>
+              <Icon name="md-mail" style={{fontSize: 30, paddingLeft: 10, color: '#d93025'}}  onPress={ ()=>{ Linking.openURL('mailto:ejazshah077@gmail.com')}}/>
               </Row>
           </Col>
                   

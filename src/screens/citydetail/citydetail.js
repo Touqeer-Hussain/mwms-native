@@ -13,6 +13,7 @@ import { View, AsyncStorage, Image, ImageBackground, Dimensions } from 'react-na
 
 import { Bars } from 'react-native-loader';
 
+import moment from 'moment-timezone'
 
 
 
@@ -64,19 +65,14 @@ export default class Citydetail extends React.Component {
 
       //     console.log(data.currently.time)
             var targetTime = new Date(data.currently.time * 1000);
-            var timeZoneFromDB = parseInt(data.timezoneOffset); 
-            var tzDifference = timeZoneFromDB * 60 + targetTime.getTimezoneOffset();
-            var offsetTime = new Date(targetTime.getTime() + tzDifference * 60 * 1000); 
+            
 
-            var cDate = offsetTime.toLocaleDateString()
-            // console.log(offsetTime)
+            var t = moment(targetTime).tz(data.timezone).format('h:mm a')
 
-            var cTime = offsetTime.toLocaleTimeString().split(":");
-            var pTime = cTime[0] > 12 ? `${cTime[0] - 12}:${cTime[1]}` : `${cTime[0]}:${cTime[1]}`
-            var meridim = cTime[0] > 12 ? 'pm' : 'am'
+            var d = moment(targetTime).tz(data.timezone).format('DD/MM/YYYY')
 
             this.setState({
-              mainTime: pTime + " " + meridim + "  " + cDate
+              mainTime: d + " " + t
             })
 
         if(data.currently.time >= data.daily.data[0].sunriseTime && data.currently.time <= data.daily.data[0].sunsetTime){
@@ -220,6 +216,8 @@ getPic(icon){
             <Row>
             <Col>
             <Text style={{fontSize: 15, color: currentFontColor}}>{mainTime}</Text>
+            <Text style={{fontSize: 15, color: '#656565'}}>Last updated</Text>
+
 
             </Col>
 
@@ -417,47 +415,7 @@ getPic(icon){
             </Row>
             </Grid>
             </ImageBackground>
-          {/* <Card transparent>
-            <ImageBackground  source={require('../../assets/images/day-background.png')} style={{borderRadius: 0, borderWidth: 2, borderColor: main.state.outlineColor}}>
-          
-          
-            <CardItem cardBody>
-                <Left>
-                <Image source={tempIcon} style={{height: 50, width: 20, flex: 1, paddingLeft: 50}}/>  
-                <Text style={{fontSize: 70}}>{Math.round(data.currently.temperature)}<Text style={{fontSize: 30}}>&#8451;</Text></Text>
-                    
-                </Left>
-                <Body></Body>
-                <Right style={{paddingRight: 30}}>
-                <Image source={iconName} style={{height: 100, width: 103.17, flex: 1}}/>
-                </Right>
-
-            </CardItem>
-            <CardItem>
-                <Body>
-
-                </Body>
-                <Right>
-                <Text>{new Date(data.currently.time * 1000).toDateString()}</Text>
-                </Right>
-
-            </CardItem>
-            </ImageBackground>
-          </Card>
-          <List>
-            <ListItem>
-              <Left><Text>Simon Mignolet</Text></Left>
-              <Right><Text>1000 hpa</Text></Right>
-            </ListItem>
-            <ListItem>
-              <Left><Text>Simon Mignolet</Text></Left>
-              <Right><Text>1000 hpa</Text></Right>
-            </ListItem>
-            <ListItem>
-              <Left><Text>Simon Mignolet</Text></Left>
-              <Right><Text>1000 hpa</Text></Right>
-            </ListItem>
-          </List> */}
+         
           </Tab>
           <Tab heading="Hourly"  
           tabStyle={{backgroundColor: barColor}} 
@@ -466,14 +424,16 @@ getPic(icon){
              <ImageBackground source={background} style={{width: '100%', height:  Math.round(Dimensions.get('window').height)}}>
             {data.hourly.data.map((snap, i) => {                                                
                                                    
-                                                    var targetTime = new Date(snap.time * 1000);
-                                                    var timeZoneFromDB = parseInt(data.timezoneOffset); 
-                                                    var tzDifference = timeZoneFromDB * 60 + targetTime.getTimezoneOffset();
-                                                    var offsetTime = new Date(targetTime.getTime() + tzDifference * 60 * 1000); 
+                                                   
 
-                                                    var cTime = offsetTime.toLocaleTimeString().split(":");
-                                                    var pTime = cTime[0] > 12 ? `${cTime[0] - 12}:${cTime[1]}` : `${cTime[0]}:${cTime[1]}`
-                                                    var meridim = cTime[0] > 12 ? 'pm' : 'am'
+                                                var targetTime = new Date(snap.time * 1000)
+                                                   
+                                                var t = moment(targetTime).tz(data.timezone).format('h:mm a')
+                                                            // console.log(data.timezoneOffset)
+                                                            // console.log(data.timezone ,s)
+
+
+
                                                   
                                                     return (  <Row key={i} style={{
                                                       paddingTop: 15,
@@ -487,7 +447,7 @@ getPic(icon){
                                                                 
                                         
                                                                 <Col size={3}>
-                                                                  <Text style= {{ fontSize:25, color: currentFontColor, paddingLeft: 13, paddingTop: 3}}>{pTime} {meridim}</Text>          
+                                                                  <Text style= {{ fontSize:25, color: currentFontColor, paddingLeft: 13, paddingTop: 3}}>{t}</Text>          
                                                                 </Col>
 
                                                                 <Col size={2}>
@@ -516,11 +476,8 @@ getPic(icon){
             {data.daily.data.map((snap, i) => {                                                
                                                    
                                                     var targetTime = new Date(snap.time * 1000);
-                                                    var timeZoneFromDB = parseInt(data.timezoneOffset); 
-                                                    var tzDifference = timeZoneFromDB * 60 + targetTime.getTimezoneOffset();
-                                                    var offsetTime = new Date(targetTime.getTime() + tzDifference * 60 * 1000); 
 
-                                                    var cDate = offsetTime.toLocaleDateString()
+                                                    var d = moment(targetTime).tz(data.timezone).format('DD/MM/YYYY')
 
                                                    
                                                   
@@ -535,7 +492,7 @@ getPic(icon){
                                                     
 
                                                             <Col size={1}>
-                                                                  <Text style= {{ fontSize:22, color: currentFontColor, paddingLeft: 5}}>{cDate}</Text>          
+                                                                  <Text style= {{ fontSize:22, color: currentFontColor, paddingLeft: 5}}>{d}</Text>          
                                                             </Col>
 
                                                             <Col size={1}>

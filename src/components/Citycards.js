@@ -96,12 +96,11 @@ export default class Citycards extends React.Component {
   render() {
 
 
-    const { city, country, tempIcon, temp, date, unit, main, data } = this.props
+    const { city, country, tempIcon, temp, compositeTime, unit, main, data } = this.props
     
     return (
             <View>
           <Card  onTouchEnd={async () => {
-            console.log('Cities Card', city)
               await AsyncStorage.setItem('data', JSON.stringify(data));
 
               main.setState({
@@ -139,11 +138,12 @@ export default class Citycards extends React.Component {
 
             </CardItem>
             <CardItem>
-                <Body>
-
-                </Body>
-                <Right>
-                <Text>{date}</Text>
+              
+                <Right style={{
+                    flex: 1
+                }}>
+                <Text>{compositeTime}</Text>
+                <Text note>Last updated</Text>
                 </Right>
 
             </CardItem>

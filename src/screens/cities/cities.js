@@ -13,6 +13,8 @@ import Citycards from '../../components/Citycards'
 
 import firebase from '../../config/firebase'
 
+import moment from 'moment-timezone'
+
 
 export default class Cities extends React.Component {
   constructor(props) {
@@ -109,10 +111,33 @@ export default class Cities extends React.Component {
             }}>
               
         {citiesList.map((snap,i )=> {
-                  
-                
+                   var targetTime = new Date(snap.currently.time * 1000)
+                   var cDate = targetTime.toLocaleDateString('en-IN', {
+                     timeZone: snap.timezone, 
+                     dateStyle: 'short',
+                       })
+
+                       var cTime = targetTime.toLocaleTimeString('en-US', {
+                         timeZone: snap.timezone, 
+                         hour12: true,
+                         timeStyle: 'short',
+                           })
+                           var t = moment(targetTime).tz(snap.timezone).format('h:mm a')
+
+                           var d = moment(targetTime).tz(snap.timezone).format('DD/MM/YYYY')
+                         
                     
-                return <Citycards  data={snap} city={snap.city} country={snap.country} tempIcon={tempIcon} image={snap.currently.icon}  temp={Math.round(snap.currently.temperature)}  date={new Date(snap.currently.time * 1000).toDateString()} unit='&#8451;' main={main} key={i}/>
+                return <Citycards  key={i}
+                data={snap} 
+                city={snap.city} 
+                country={snap.country} 
+                tempIcon={tempIcon} 
+                image={snap.currently.icon}  
+                temp={Math.round(snap.currently.temperature)}  
+                compositeTime={d + ' ' + t} 
+                unit='&#8451;' 
+                main={main} 
+                />
              
            
            

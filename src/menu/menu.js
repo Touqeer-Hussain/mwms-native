@@ -42,7 +42,7 @@ export default class Menu extends React.Component {
 
 
 async componentDidUpdate(){
-      this.scRef.scrollWithoutAnimationTo(0, 0)
+      this.scRef.scrollTo(0, 0)
   if(this.props.main.state.search == true && this.state.trip == true){
     this.getHeader();
     //console.log('Menu')
