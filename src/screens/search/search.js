@@ -13,7 +13,8 @@ export default class Search extends Component {
             searchQuery: '',
             searchList: null,
             load: true,
-            citiesList: []
+            citiesList: [],
+            noSearch: false
         }
     }
 
@@ -36,10 +37,35 @@ export default class Search extends Component {
     async searchFunc(){
         const { searchQuery } = this.state;
         this.setState({
-            load: false
+            load: false,
+            noSearch: false
         })
         let fth = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${searchQuery}&key=1ef2a51a49a748d1afd8e32f57c441d9`);
         let res = await fth.json();
+        if(res.results.length < 1){
+          this.setState({
+            noSearch: true
+          })
+        }
+        var stoper = true
+        res.results.filter(a => {
+          console.log(a)
+          if(stoper){
+            if(a.confidence <= 5){
+                stoper = false
+                this.setState({
+                  noSearch: false
+                })
+            }else{
+              this.setState({
+                noSearch: true
+              })
+            }
+
+          }
+          return stoper
+        })
+
         this.setState({
           searchList: res
         }, () => {
@@ -55,7 +81,7 @@ export default class Search extends Component {
 
   render() {
 
-        const { load } = this.state;
+        const { load, noSearch } = this.state;
         const { main } = this.props;
  
     return (
@@ -211,6 +237,22 @@ export default class Search extends Component {
                       
 
                         })
+            }{
+              noSearch && 
+              <ListItem style={{
+                flex: 1,
+                alignContent: 'center',
+                alignItems: 'center'
+              }}>
+              <Body>
+                              
+              <Text>No city Found!</Text>
+              <Text note>Please search again!</Text>
+
+              </Body>
+              <Right>
+              </Right>
+            </ListItem> 
             }
             
             </List>
