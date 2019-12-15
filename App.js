@@ -20,13 +20,13 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        realTime: null,
+        realTime: true,
         sensorControl: null,
         cities: null,
         about: null,
         cityDetail: null,
         theme: null,
-        search: true,
+        search: null,
         isReady: false,
         title: '',
         menuBarColor: '',
